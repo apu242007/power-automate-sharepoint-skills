@@ -1,18 +1,18 @@
 ---
 name: spa-sharepoint-power-automate
 description: >-
-  Use when building, extending or troubleshooting public no-login web apps (React/Vite SPA or static HTML/PWA on
-  GitHub Pages) that send data to SharePoint through a Power Automate HTTP-trigger flow (inspection /
-  field-operations apps), and for any Power Automate + SharePoint pipeline problem: 'Who can trigger the flow'
-  default breaking a public SPA (401/403, empty run history), Premium licensing
-  (DirectApiAuthorizationRequired), 120 s / 100 MB limits and 502/504, auto-suspended flows, Get items 100/5,000
-  thresholds and pagination, 429 throttling and Retry-After, try/catch/Terminate and silent failures after an
-  early Response, idempotent retries, solutions + connection references + environment variables, flows-as-code
-  (import package, admin API, run history), SharePoint REST column setup, PWA/service worker/Wake Lock/Web Push,
-  GitHub Pages deploy, and the unified error catalog. Also covers flows triggered by a file uploaded to
-  SharePoint ('When a file is created or modified (properties only)': trigger fields, Get file content 'Route
-  did not match', polling delay, resubmit). This file is an index: open the referenced file for the section you
-  need.
+  Use when building or troubleshooting public no-login web apps (React/Vite SPA or static PWA on GitHub Pages)
+  that send data to SharePoint through a Power Automate HTTP-trigger flow, and for Power Automate + SharePoint
+  pipeline problems: trigger auth default (401/403), Premium licensing, 120 s / 100 MB limits (502/504), Get
+  items 5,000 threshold and pagination, 429 throttling, try/catch/Terminate and silent failures after an early
+  Response, idempotent retries, solutions/connection references/environment variables, PAC CLI and Dataverse,
+  flows-as-code, SharePoint REST columns, list design, flows triggered by a file upload ('Route did not match'),
+  PWA/service worker, GitHub Pages deploy and an error catalog. This file is an index: open the referenced file
+  for the section you need.
+license: MIT
+metadata:
+  version: 1.1.0
+  updated: '2026-09-24'
 ---
 
 # SPA → Power Automate → SharePoint pipeline
