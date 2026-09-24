@@ -35,7 +35,7 @@ Puntos verificados:
 
 - **Sí**: hay (o va a haber) entorno de pruebas separado, más de un flow que comparte conexiones, o hace falta trazabilidad de cambios (auditoría de SGI/ISO).
 - **No todavía**: un solo flow chico, un solo entorno, un solo mantenedor. El paquete `.zip` + `Flow-*.md` de §9 alcanza, y §20 (generar y aplicar por API) seguirá siendo el camino rápido para iterar.
-- **NO VERIFICADO**: si la API de administración de §20.2 (`PATCH` de la definición) acepta escribir sobre un flow **dentro de una solución**. Probar en un entorno de desarrollo antes de asumirlo. Lo esperable es que los cambios a flows de solución pasen por importación de la solución.
+- **Verificado (2026-09-24, Microsoft Learn):** la vía **soportada** para escribir flows de solución es la tabla `workflow` de Dataverse y PAC CLI (**§26**). La API de §20.2 (`api.flow.microsoft.com`) **no está soportada** para nada, y los flows sueltos no se pueden administrar por código de forma soportada. Si la API de §20.2 acepta escribir sobre un flow *dentro* de una solución **no está documentado**: no lo asumas.
 
 ## 24.4 · Migrar un flow suelto a solución (procedimiento)
 

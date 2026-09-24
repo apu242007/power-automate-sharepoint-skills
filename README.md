@@ -14,7 +14,7 @@ Abrí una sesión nueva del agente para que la cargue. Revisá siempre el conten
 
 ## Qué hay adentro
 
-`SKILL.md` es un **índice liviano** (router "problema → archivo" y 15 reglas que no se negocian). El detalle está en `references/` y el agente abre solo lo que necesita.
+`SKILL.md` es un **índice liviano** (router "problema → archivo" y 16 reglas que no se negocian). El detalle está en `references/` y el agente abre solo lo que necesita.
 
 | § | Tema | Archivo |
 |---|---|---|
@@ -30,13 +30,18 @@ Abrí una sesión nueva del agente para que la cargue. Revisá siempre el conten
 | 22 | Resiliencia: Try/Catch, reintentos, concurrencia, datos sensibles | `10-resiliencia-y-errores-flow.md` |
 | 23 | SharePoint a escala: umbrales, paginación, throttling | `11-lecturas-sharepoint-a-escala.md` |
 | 24 | Soluciones, connection references, variables de entorno, auditoría | `12-alm-soluciones-y-auditoria.md` |
-| 25 | Registro de herramientas de terceros evaluadas | `13-decisiones-de-herramientas.md` |
+| 25 | Registro de herramientas de terceros evaluadas y relevamiento del ecosistema | `13-decisiones-de-herramientas.md` |
+| 26 | Flows de soluciones por código: PAC CLI y tabla `workflow` de Dataverse | `14-soluciones-por-codigo-pac-dataverse.md` |
+| 27 | Diseño de listas de SharePoint como backend | `15-diseno-listas-sharepoint.md` |
+| 28 | Flujos que se disparan al subir un archivo a SharePoint | `16-flujos-disparados-por-archivos.md` |
 
 ### Lo que la distingue
 
 - **Trampas que solo aparecen en runtime**, con su síntoma exacto: `PatchItem` que exige todas las columnas obligatorias, `Choice`/`Hyperlink` que llegan como objeto **o** cadena y tiran el `Select` entero con 502, `Initialize variable` solo en la raíz, ramas sin `Response` que devuelven un `202` silencioso, flow con nombre duplicado que hace que un *Update* aterrice en el flow equivocado.
 - **Flows como código**: generar el paquete de importación, aplicar la definición por la API de administración y leer el error por acción del historial de corridas, sin abrir el diseñador.
 - **Datos de plataforma verificados** contra Microsoft Learn (§21–§24), con fuente y fecha. Por ejemplo, que el default de "Who can trigger the flow" en flows nuevos es *Any user in my tenant* y por eso una SPA pública recibe 401 hasta que se cambia a *Anyone*.
+- **Flujos disparados por archivos** (§28): campos del disparador que engañan (`{Name}` sin extensión), `Route did not match`, rendimiento de la búsqueda del ítem de destino (de ~11 min a <30 s), el disparador de sondeo y cómo probar sin esperar.
+- **Camino soportado por código** (§26): PAC CLI y la tabla `workflow` de Dataverse, y el aviso de que `api.flow.microsoft.com` no está soportada por Microsoft.
 - **Autenticación sin app propia para scripts de desarrollo** (§18.1, §20.2): ver el aviso de uso responsable más abajo.
 
 ## Uso responsable de la autenticación con cliente de Microsoft (§18.1 y §20.2)

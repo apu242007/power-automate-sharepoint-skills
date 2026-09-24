@@ -3,6 +3,8 @@
 
 # 20 · Flows como código: generar, aplicar y depurar sin el diseñador
 
+> **Aviso de soporte (2026-09-24).** La API `api.flow.microsoft.com` que usa §20.2 **no está soportada por Microsoft**: se usa bajo tu propio riesgo y puede cambiar sin aviso. Microsoft tampoco soporta administrar por código los flows sueltos (*Mis flujos*). Sirve para **iterar rápido en desarrollo**; para producción, pasá el flow a una solución y usá el camino soportado de **§26** (PAC CLI y tabla `workflow` de Dataverse).
+
 Power Automate no tiene API pública de creación, y de ahí sale la conclusión equivocada de que
 hay que armar todo a clics. **Sí hay dos caminos programáticos**, y para un flow de más de ~20
 acciones los dos son mejores que el diseñador:

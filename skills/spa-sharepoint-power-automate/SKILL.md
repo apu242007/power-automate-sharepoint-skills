@@ -9,8 +9,10 @@ description: >-
   thresholds and pagination, 429 throttling and Retry-After, try/catch/Terminate and silent failures after an
   early Response, idempotent retries, solutions + connection references + environment variables, flows-as-code
   (import package, admin API, run history), SharePoint REST column setup, PWA/service worker/Wake Lock/Web Push,
-  GitHub Pages deploy, and the unified error catalog. This file is an index: open the referenced file for the
-  section you need.
+  GitHub Pages deploy, and the unified error catalog. Also covers flows triggered by a file uploaded to
+  SharePoint ('When a file is created or modified (properties only)': trigger fields, Get file content 'Route
+  did not match', polling delay, resubmit). This file is an index: open the referenced file for the section you
+  need.
 ---
 
 # SPA → Power Automate → SharePoint pipeline
@@ -88,6 +90,9 @@ Esta skill se dividió (2026-09-24) en un índice liviano y `references/` con el
 | Contrato del payload SPA ↔ flow | `03` §8 |
 | GitHub Pages: deploy, despliegue trabado, verificar que está en vivo | `05` §11 |
 | PWA operativa en el celular (Wake Lock, push, máquina de estados) | `07` §19 |
+| Flow que se dispara **al subir un archivo** a SharePoint (`Route did not match`, `{Name}` sin extensión, tarda en reaccionar, "Conexión no válida") | `16` §28 |
+| Flows de **solución** por código: `pac solution`, tabla `workflow` de Dataverse, archivo de despliegue | `14` §26 |
+| Diseñar una lista nueva (tipos de columna, índices, permisos, relaciones, archivado) | `15` §27 |
 | "¿Instalamos esta skill/herramienta/servicio de terceros?" | `13` §25 |
 
 ## Índice: número de sección → archivo
@@ -107,6 +112,9 @@ Esta skill se dividió (2026-09-24) en un índice liviano y `references/` con el
 | **23** | **SharePoint a escala: umbrales, paginación, throttling** *(nuevo)* | `11-lecturas-sharepoint-a-escala.md` |
 | **24** | **Soluciones, connection references, variables de entorno, auditoría** *(nuevo)* | `12-alm-soluciones-y-auditoria.md` |
 | **25** | **Herramientas de terceros evaluadas** *(nuevo)* | `13-decisiones-de-herramientas.md` |
+| **26** | **Flows de soluciones por código: PAC CLI y Dataverse** *(nuevo)* | `14-soluciones-por-codigo-pac-dataverse.md` |
+| **27** | **Diseño de listas de SharePoint como backend** *(nuevo)* | `15-diseno-listas-sharepoint.md` |
+| **28** | **Flujos que se disparan al subir un archivo** *(nuevo)* | `16-flujos-disparados-por-archivos.md` |
 
 ## Reglas que no se negocian
 
@@ -127,6 +135,7 @@ Las que más cuestan cuando se olvidan. Cada una remite a la sección con el por
 13. **Verificar que el deploy está en vivo** (bundle con la cadena nueva) antes de decir "ya está" (§11, §15).
 14. **Exportar y commitear el paquete del flow** tras cada cambio relevante (§9). Anotar dueño y licencia que lo cubre (§21.6).
 15. **No decir "probado" sin decir qué se probó:** `tsc` verde no es prueba de que el formulario funcione (§14).
+16. **Si un error sigue igual tras dos correcciones, cambiá de enfoque** y, antes de dar una corrección por fallada, **compará la hora de la corrida con la fecha de modificación del flow** (§15). Y un "Correcto" no prueba nada: **consultá el ítem de destino** (§28.8).
 
 ## Mantener esta skill
 
@@ -136,4 +145,5 @@ Las que más cuestan cuando se olvidan. Cada una remite a la sección con el por
 
 ## Historial
 
+- **2026-09-24 (2)** — Nuevos: §26 flows de solución por código (PAC CLI, Dataverse `workflow`), §27 diseño de listas, §28 flujos disparados por archivos (en una versión anterior figuraba como §18). §17 +4 filas, §15 guía "si una corrección no funciona", §9 nota a §28.5, §20 aviso de soporte de `api.flow.microsoft.com`, §24.3 verificado, §25.4 relevamiento del ecosistema.
 - **2026-09-24** — Se divide el monolito de 2.654 líneas en índice + 8 archivos de referencia (contenido idéntico; `§1–§20` intactos). Descripción acortada (de ~2.000 a ~1.000 caracteres). Nuevos: §21 trigger/licencias/límites, §22 resiliencia, §23 SharePoint a escala, §24 ALM y auditoría, §25 registro de herramientas evaluadas. Datos verificados contra Microsoft Learn el mismo día.

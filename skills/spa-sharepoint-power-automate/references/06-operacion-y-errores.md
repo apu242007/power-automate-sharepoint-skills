@@ -53,6 +53,11 @@ When a user reports "your fix didn't work" / changes aren't visible:
 
 Always do steps 1-3 before assuming a code bug. Most "didn't work" reports are deploy/cache issues, not code issues.
 
+## Si una corrección no funciona
+
+1. **¿Es la corrida de después del arreglo?** Antes de dar una corrección por fallada, **comparar la hora de la corrida con la fecha de modificación del flujo** (Detalles del flow → *Modificado*). Una corrida anterior al guardado, o del disparador viejo que todavía estaba en cola, muestra el error de antes aunque el arreglo esté bien.
+2. **Si el error sigue igual después de dos correcciones, cambiá de enfoque.** Dos intentos con el mismo mensaje significan que se está retocando un valor cuando el problema es de otra naturaleza (un id que pide otra cosa, una conexión, una acción equivocada). Volvé al paso 3 (Inputs/Outputs de la acción que falla) y replanteá **qué** se le está pasando y **por qué** lo rechaza, en lugar de probar una tercera variante del mismo valor. Ejemplo: `Route did not match` no se arregla probando rutas con y sin `.pdf` (§28.2).
+
 ---
 
 # 16 · Build order (new project from scratch)
@@ -163,3 +168,7 @@ Three places to keep in sync — plus the SP column:
 | Un chofer/operario "adivina" un PIN de 4 dígitos | 10.000 combinaciones sin bloqueo se agotan por fuerza bruta en minutos | Contador de fallidos + `BloqueadoHasta` en la lista, verificados **en el flow** (§19.4) |
 | Los tiempos facturables vienen inflados | El flow tomó el timestamp del payload del cliente | `utcNow()` dentro del flow, siempre. §19.4 |
 | Una guarda de negocio se saltea | Estaba implementada solo deshabilitando el botón en el HTML | Toda guarda que tenga consecuencia económica o legal se valida en el flow. El HTML es comodidad, no control |
+| `Route did not match` en `Obtener contenido de archivo` (`Get file content`) | Se armó una **ruta a mano** en el campo *File Identifier*; la acción espera un **id**. Falla con o sin `.pdf` | Usar `{Identifier}` del disparador. Para trabajar por ruta, la acción *Get file content using path* (§28.2) |
+| El nombre del archivo llega **sin extensión** (`informe` en vez de `informe.pdf`) | `{Name}` del disparador de archivos no trae la extensión | Usar `{FilenameWithExtension}` para nombres y filtros (§28.1) |
+| *"Hay una conexión interrumpida para «Cuando se crea o se modifica un archivo (solo propiedades)»"* / *"Conexión no válida"* con todo en Conectado | Token vencido o cada acción guarda su propia referencia de conexión | *Reparar conexión*; si persiste, **Cambiar conexión** en cada acción y en el disparador eligiendo la del **tilde verde**. Guardar y volver a guardar re-registra el disparador (§28.5, §9) |
+| El flow de archivos "no reacciona" a los 30 segundos de subir el archivo | El disparador es de **sondeo**: responde a los pocos minutos y puede agrupar cambios | Esperar unos minutos y mirar *Todas las ejecuciones*; para iterar, **Reenviar** la corrida fallida en lugar de esperar (§28.6, §28.7) |

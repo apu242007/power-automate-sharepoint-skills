@@ -338,6 +338,8 @@ The SharePoint (or Outlook) connector token in the flow expired (password change
 
 This is **not a code issue**. Pushing commits won't fix it.
 
+> Si el panel muestra **todo en «Conectado»** pero el flow marca **«Conexión no válida»**, el arreglo es *Cambiar conexión* en cada acción (§28.5).
+
 ## Clipboard: cross-loop paste fails
 
 If you `⋯` → **Copy to my clipboard** an action that lives **inside** an Apply to each, then try to paste it **outside** the loop (or vice versa), Power Automate refuses:
