@@ -6,8 +6,14 @@ Platform facts were verified against Microsoft Learn on the date of each entry; 
 ## [Unreleased]
 
 ### Planned (known gaps)
-- English translation of the index and the verified reference sections (§21–§26).
+- English translation of the remaining sections (§1–§20, §24, §25, §27, §28, §31, §33, §34).
 - Server-side PDF generation (Word template + conversion), maps and field GPS, offline queue, Approvals connector vs link-based approval, Teams / Adaptive Cards, trigger conditions and child flows.
+
+## [1.4.0] - 2026-09-24
+
+### Added
+- English translations of §21, §22, §23, §26, §29, §30 and §32 in `references/en/` (same file names and `§` numbers; the Spanish files stay the source of truth) and an English quick router in `SKILL.md`.
+- `check-skill` verifies each translation keeps the same section numbers, headings and code fences as its Spanish original; two English evals.
 
 ## [1.3.0] - 2026-09-24
 

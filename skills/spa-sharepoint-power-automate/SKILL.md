@@ -12,7 +12,7 @@ description: >-
   file is an index: open the referenced file for the section you need.
 license: MIT
 metadata:
-  version: 1.3.0
+  version: 1.4.0
   updated: '2026-09-24'
 ---
 
@@ -102,6 +102,20 @@ Esta skill se dividió (2026-09-24) en un índice liviano y `references/` con el
 | Arrancar una SPA nueva sin reescribir firma, fotos, borrador, service worker, envío con reintentos; probar un flow sin navegador | `22` §34 (código en `assets/spa-starter/`) |
 | "¿Instalamos esta skill/herramienta/servicio de terceros?" | `13` §25 |
 
+## English quick router
+
+The skill body is mostly Spanish. These sections are **translated to English** (same file names under `references/en/`, same `§` numbers); the Spanish originals remain the source of truth.
+
+| I am seeing… / I need… | Open |
+|---|---|
+| 401/403 from a new flow, `DirectApiAuthorizationRequired`, flow turned itself off, 502/504 and the 120 s / 100 MB limits | `references/en/09-licencias-limites-trigger.md` (§21) |
+| Green run but missing attachments, duplicated records on retry, try/catch/`Terminate`, concurrency, secure inputs/outputs | `references/en/10-resiliencia-y-errores-flow.md` (§22) |
+| `Get items` returns 100 rows or nothing past 5,000, 429/`Retry-After`, thresholds and indexes | `references/en/11-lecturas-sharepoint-a-escala.md` (§23) |
+| Export / edit / import solution flows with PAC CLI, Dataverse `workflow` table, unsupported `api.flow.microsoft.com` | `references/en/14-soluciones-por-codigo-pac-dataverse.md` (§26) |
+| "Disabled by your organization", DLP on the HTTP connectors, corporate network domains, what to ask IT | `references/en/17-gobernanza-del-tenant-dlp.md` (§29) |
+| Email limits, attachment size, shared mailbox, one email per item | `references/en/18-correo-outlook.md` (§30) |
+| `Sites.Selected`, Graph with least privilege, a request IT can approve | `references/en/20-permisos-graph-sites-selected.md` (§32) |
+
 ## Índice: número de sección → archivo
 
 | § | Tema | Archivo (en `references/`) |
@@ -158,6 +172,7 @@ Las que más cuestan cuando se olvidan. Cada una remite a la sección con el por
 
 ## Historial
 
+- **2026-09-24 (5)** — Traducción al inglés de §21, §22, §23, §26, §29, §30 y §32 (`references/en/`, misma numeración; el original en español es la fuente). Nuevo router en inglés. Versión 1.4.0.
 - **2026-09-24 (4)** — Nuevo: §34 kit de arranque (`assets/spa-starter/`: SPA Vite + React + TypeScript con firma, fotos, borrador versionado, service worker y cliente de envío con reintentos; 108 tests; 4 scripts sin dependencias). Versión 1.3.0.
 - **2026-09-24 (3)** — Nuevos: §29 gobernanza del tenant (DLP, firewall de IP, acceso condicional, dominios de red), §30 correo, §31 reportes y Power BI, §32 `Sites.Selected` y Graph, §33 datos personales. §14 actualizado con la pirámide de pruebas. Versión 1.2.0.
 - **2026-09-24 (2)** — Nuevos: §26 flows de solución por código (PAC CLI, Dataverse `workflow`), §27 diseño de listas, §28 flujos disparados por archivos (en una versión anterior figuraba como §18). §17 +4 filas, §15 guía "si una corrección no funciona", §9 nota a §28.5, §20 aviso de soporte de `api.flow.microsoft.com`, §24.3 verificado, §25.4 relevamiento del ecosistema.

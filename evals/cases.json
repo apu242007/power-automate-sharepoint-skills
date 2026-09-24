@@ -399,6 +399,38 @@
         "test-flow.mjs",
         "FLOW_URL"
       ]
+    },
+    {
+      "id": "en-trigger-401",
+      "lang": "en",
+      "prompt": "My SPA gets 401 from the flow I just created and the run history is empty.",
+      "router": "09",
+      "keywords": [
+        "401/403 from a new flow"
+      ],
+      "file": "09-licencias-limites-trigger.md",
+      "section": "21.1",
+      "must_include": [
+        "Any user in my tenant",
+        "Anyone",
+        "legacy"
+      ]
+    },
+    {
+      "id": "en-sites-selected",
+      "lang": "en",
+      "prompt": "IT will not give me tenant-wide SharePoint permissions. What can I ask for?",
+      "router": "20",
+      "keywords": [
+        "Sites.Selected"
+      ],
+      "file": "20-permisos-graph-sites-selected.md",
+      "section": "32.2",
+      "must_include": [
+        "Sites.Selected",
+        "/permissions",
+        "write"
+      ]
     }
   ]
 }

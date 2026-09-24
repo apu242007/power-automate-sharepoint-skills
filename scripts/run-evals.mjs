@@ -16,10 +16,11 @@ const fails = [];
 for (const c of casesFile.cases) {
   const problems = [];
   // 1) router: alguna fila de la tabla cita `NN` y contiene alguna palabra clave del caso
-  const row = routerRows.find((r) => r.includes("`" + c.router + "`") && c.keywords.some((k) => r.toLowerCase().includes(k.toLowerCase())));
+  const needle = c.lang === "en" ? "references/en/" + c.file : "`" + c.router + "`";
+  const row = routerRows.find((r) => r.includes(needle) && c.keywords.some((k) => r.toLowerCase().includes(k.toLowerCase())));
   if (!row) problems.push("el router no envía a `" + c.router + "` con palabras clave " + JSON.stringify(c.keywords));
   // 2) archivo + sección
-  const path = join(skillDir, "references", c.file);
+  const path = c.lang === "en" ? join(skillDir, "references", "en", c.file) : join(skillDir, "references", c.file);
   if (!existsSync(path)) {
     problems.push("no existe references/" + c.file);
   } else {

@@ -76,6 +76,20 @@ for (const name of skills) {
     if (body.length > 60_000) warn(name, `references/${f} pesa ${(body.length / 1024).toFixed(0)} KB: considerá dividirlo`);
   }
 
+  // traducciones en references/en: deben tener original y conservar numeracion, encabezados y bloques de codigo
+  const enDir = join(refDir, "en");
+  if (existsSync(enDir)) {
+    for (const f of readdirSync(enDir).filter((x) => x.endsWith(".md"))) {
+      const orig = join(refDir, f);
+      if (!existsSync(orig)) { err(name, `references/en/${f} no tiene original en references/`); continue; }
+      const heads = (p) => readFileSync(p, "utf8").split(/\r?\n/).filter((l) => l.startsWith("#")).map((l) => (l.match(/^(#+)\s*([\d.]*)/) || []).slice(1, 3).join(":"));
+      const fences = (p) => (readFileSync(p, "utf8").match(/```/g) || []).length;
+      if (JSON.stringify(heads(orig)) !== JSON.stringify(heads(join(enDir, f)))) err(name, `references/en/${f}: encabezados o numeración distintos del original`);
+      if (fences(orig) !== fences(join(enDir, f))) err(name, `references/en/${f}: cantidad de bloques de código distinta del original`);
+      if (!text.includes(`references/en/${f}`)) err(name, `SKILL.md no enruta a references/en/${f} (router en inglés)`);
+    }
+  }
+
   // enlaces markdown relativos
   const mdFiles = [file, ...refFiles.map((f) => join(refDir, f))];
   for (const p of mdFiles) {

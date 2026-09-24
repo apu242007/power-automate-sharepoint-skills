@@ -7,7 +7,7 @@
 **An agent skill that knows why your Power Automate + SharePoint pipeline broke.**
 It carries the traps that only show up at runtime, the limits and licensing that nobody warns you about, and the tenant policies your IT team applies, all with the exact symptom, the cause, and a fix, and with the platform facts checked against Microsoft Learn (with date and link).
 
-> 🇪🇸 [Leer en español](README.es.md) · The skill content is written mostly in **Spanish** (with English where the platform terms are English).
+> 🇪🇸 [Leer en español](README.es.md) · The skill body is written mostly in **Spanish**; the key platform sections (§21–§23, §26, §29, §30, §32) are **translated to English** in `references/en/`.
 
 ## The problem it solves
 

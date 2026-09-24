@@ -6,7 +6,7 @@
 **Una skill de agente que sabe por qué se rompió tu pipeline de Power Automate + SharePoint.**
 Trae las trampas que solo aparecen en ejecución, los límites y licencias que nadie te avisa, y las políticas del tenant que aplica tu equipo de IT. Todo con el **síntoma exacto**, la causa y el arreglo, y con los datos de plataforma verificados contra Microsoft Learn (con fecha y enlace).
 
-> 🇬🇧 [Read in English](README.md)
+> 🇬🇧 [Read in English](README.md) · Las secciones clave de plataforma (§21–§23, §26, §29, §30, §32) tienen **traducción al inglés** en `references/en/`.
 
 ## El problema
 
