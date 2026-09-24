@@ -184,7 +184,7 @@ The script update needs the SP MERGE pattern (`X-HTTP-Method: MERGE` + `IF-MATCH
 
 # 18 · Bulk data sync: Excel → SharePoint list via REST (NO Power Automate)
 
-When the task is "load/update an **existing** SP list from an Excel" (not a public form pipeline), skip the flow entirely. Drive SharePoint REST directly with a resource token from a script. Reference impl in this tree: `app SINIESTROS EXPERTA/` (`auth-sp.ps1` + `sync-siniestros-sprest.ps1`).
+When the task is "load/update an **existing** SP list from an Excel" (not a public form pipeline), skip the flow entirely. Drive SharePoint REST directly with a resource token from a script.
 
 ## 18.1 Auth without per-app admin consent and without re-prompts
 

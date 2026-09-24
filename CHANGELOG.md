@@ -11,6 +11,20 @@ Platform facts were verified against Microsoft Learn on the date of each entry; 
 - Find which post-import step (open, turn on, run) actually starts a solution flow that uses a connection reference.
 - Power Apps authoring (`pac canvas`, `pac power-apps` appeared in `pac` 2.12); today the skill covers Power Apps only as a caller of the flow.
 
+## [1.4.3] - 2026-09-24
+
+### Fixed
+- §31: DirectQuery is not available for the *SharePoint Online list* connector (Import only; the connector page lists only *Site URL*). Use Dataverse or SQL if DirectQuery is needed.
+- §30.3: messages sent from a shared mailbox are saved in the sender's *Sent Items* by default; a copy in the mailbox needs `MessageCopyForSentAsEnabled` / `MessageCopyForSendOnBehalfEnabled`.
+- §9: the claim that the HTTP trigger handles CORS preflight natively is now marked NOT VERIFIED (Learn does not document it); test in a browser and use a proxy if the preflight fails.
+- §23: clarified that Get items returns 100 unless Pagination is turned on, even though Learn says items are "paginated by default".
+- §9: server-side validation of the request body is mandatory when the trigger schema is empty, and email bodies and attachments from a public caller are untrusted.
+- §1: rate limiting and bot verification in a gateway from the start, since the trigger URL and shared key are readable in the public bundle.
+- Removed a reference to material that is not distributed, and a pointer to a missing file.
+
+### Known open items (from an external review)
+- Starter kit: automatic retries need mandatory server-side idempotency; 2xx (including an empty 202) is treated as success; the signature pad has no keyboard alternative; drafts do not expire; small JPEGs keep their EXIF; the service worker reloads immediately on update.
+
 ## [1.4.2] - 2026-09-24
 
 ### Added

@@ -12,7 +12,7 @@ description: >-
   file is an index: open the referenced file for the section you need.
 license: MIT
 metadata:
-  version: 1.4.2
+  version: 1.4.3
   updated: '2026-09-24'
 ---
 
@@ -172,6 +172,7 @@ Las que más cuestan cuando se olvidan. Cada una remite a la sección con el por
 
 ## Historial
 
+- **2026-09-24 (8)** — Correcciones tras una revisión externa, verificadas contra Microsoft Learn: DirectQuery no existe para el conector de listas (§31), los enviados del buzón compartido van a la carpeta de quien envía salvo configuración de Exchange (§30.3), el CORS del trigger pasa a NO VERIFICADO (§9), aclaración sobre la paginación de Get items (§23), validación obligatoria del lado del flow y entrada no confiable en el correo (§9), control de abuso desde el inicio (§1). Versión 1.4.3.
 - **2026-09-24 (7)** — §26.7 completado: prueba de punta a punta con SharePoint (una lista y una columna creadas por un flow programado con llamadas REST, y una fila escrita por un flow HTTP: 200 con el `Id`), la trampa de "Crear elemento" (valida columnas al guardar) y lo que no se confirmó. Versión 1.4.2.
 - **2026-09-24 (6)** — §26.7 nuevo: receta probada para crear un flow HTTP desde cero solo con `pac` (prueba real en un entorno de desarrollador: import, activación, POST, corridas, cambio por código; trampas de mayúsculas del GUID y de la connection reference; lo no probado, marcado). Versión 1.4.1.
 - **2026-09-24 (5)** — Traducción al inglés de §21, §22, §23, §26, §29, §30 y §32 (`references/en/`, misma numeración; el original en español es la fuente). Nuevo router en inglés. Versión 1.4.0.
