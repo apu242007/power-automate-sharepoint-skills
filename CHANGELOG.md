@@ -11,6 +11,11 @@ Platform facts were verified against Microsoft Learn on the date of each entry; 
 - Find which post-import step (open, turn on, run) actually starts a solution flow that uses a connection reference.
 - Power Apps authoring (`pac canvas`, `pac power-apps` appeared in `pac` 2.12); today the skill covers Power Apps only as a caller of the flow.
 
+## [1.4.8] - 2026-09-24
+
+### Changed
+- §9: second CORS observation, a preflight from the real origin of a deployed GitHub Pages app to its own live trigger got the same `204` and `Access-Control-Allow-Origin: *`. No data was submitted.
+
 ## [1.4.7] - 2026-09-24
 
 ### Changed

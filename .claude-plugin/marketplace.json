@@ -6,14 +6,14 @@
   },
   "metadata": {
     "description": "Agent skills for Power Automate + SharePoint pipelines: public SPA/PWA -> HTTP trigger flow -> SharePoint, limits, licensing, resilience, PAC CLI/Dataverse, list design and a verified error catalog.",
-    "version": "1.4.7"
+    "version": "1.4.8"
   },
   "plugins": [
     {
       "name": "spa-sharepoint-power-automate",
       "source": "./",
       "description": "Build and troubleshoot public no-login web apps that send data to SharePoint through a Power Automate HTTP-trigger flow: limits, licensing, tenant governance (DLP), resilience, PAC CLI/Dataverse, list design, error catalog.",
-      "version": "1.4.7",
+      "version": "1.4.8",
       "license": "MIT",
       "keywords": ["power-automate", "sharepoint", "power-platform", "pwa", "spa", "dataverse", "pac-cli", "flows"],
       "category": "productivity",
