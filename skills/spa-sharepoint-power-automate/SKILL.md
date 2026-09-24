@@ -12,7 +12,7 @@ description: >-
   file is an index: open the referenced file for the section you need.
 license: MIT
 metadata:
-  version: 1.4.8
+  version: 1.4.9
   updated: '2026-09-24'
 ---
 
@@ -172,6 +172,7 @@ Las que más cuestan cuando se olvidan. Cada una remite a la sección con el por
 
 ## Historial
 
+- **2026-09-24 (14)** — Coherencia tras la quinta revisión: el árbol final y la lista de control del flow (§9) incluyen `Validate_body` y `Check_duplicate`; §16 (orden de construcción) y el catálogo (§17) ya no prescriben recargar solo tras un cambio de service worker; la firma ignora restauraciones asíncronas que llegan después de borrar o de empezar un trazo. Versión 1.4.9.
 - **2026-09-24 (13)** — CORS del trigger: segunda observación, un preflight desde el origen real de una app desplegada en GitHub Pages contra su propio trigger vivo (mismo `204` y `Access-Control-Allow-Origin: *`). Versión 1.4.8.
 - **2026-09-24 (12)** — CORS del trigger pasa de NO VERIFICADO a OBSERVADO: un preflight de navegador (`Origin`, `Access-Control-Request-Headers: content-type,x-app-key`) contra una URL `*.environment.api.powerplatform.com` recibió `204` con `Access-Control-Allow-Origin: *`, y la respuesta del POST también lo lleva (§9). Sigue sin estar documentado por Microsoft ni probado desde una página real. Versión 1.4.7.
 - **2026-09-24 (11)** — Cuarta ronda de revisión: el service worker usa un prefijo de cache por alcance (varios proyectos de Pages no se borran los caches) y su instalación es atómica (un precache incompleto no reemplaza al que funcionaba); `spfetch` acepta el host DoD `sharepoint-mil.us`; §2 ya no recomienda recargar solo tras actualizar el service worker y corrige la declaración de iconos del manifest. Versión 1.4.6.

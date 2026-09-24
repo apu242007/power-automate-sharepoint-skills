@@ -11,6 +11,13 @@ Platform facts were verified against Microsoft Learn on the date of each entry; 
 - Find which post-import step (open, turn on, run) actually starts a solution flow that uses a connection reference.
 - Power Apps authoring (`pac canvas`, `pac power-apps` appeared in `pac` 2.12); today the skill covers Power Apps only as a caller of the flow.
 
+## [1.4.9] - 2026-09-24
+
+### Fixed
+- §9: the final visual tree and the pre-flight checklist of the flow template now include `Validate_body` and `Check_duplicate` (they were only in the step list).
+- §16 build order and the §17 error catalog no longer prescribe an automatic reload after a service-worker change; they point to the update banner. §2 steps 3-4 match the code.
+- Signature pad: a saved signature that finishes loading after the user cleared it or started a new stroke is no longer painted over it.
+
 ## [1.4.8] - 2026-09-24
 
 ### Changed
