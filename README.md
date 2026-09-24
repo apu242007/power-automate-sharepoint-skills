@@ -4,14 +4,44 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Agent Skills](https://img.shields.io/badge/agent%20skills-agentskills.io-informational)](https://agentskills.io/specification)
 
-**An agent skill that knows why your Power Automate + SharePoint pipeline broke.**
-It carries the traps that only show up at runtime, the limits and licensing that nobody warns you about, and the tenant policies your IT team applies, all with the exact symptom, the cause, and a fix, and with the platform facts checked against Microsoft Learn (with date and link).
+**Let your AI agent build the web page, the Power Automate flow and the SharePoint list, from your own computer, and know why it breaks.**
+
+An agent skill for Claude Code, GitHub Copilot in VS Code, Codex, Cursor and any agent that reads the [Agent Skills](https://agentskills.io/specification) format. It teaches the agent how to connect an **external web page** (React/Vite or a static PWA) to **SharePoint through Power Automate**, how to create and change those flows **as code from your terminal** with the Power Platform CLI (`pac`) instead of editing them by hand in the portal, and the traps that only show up at runtime: limits, licensing, tenant policies, exact symptom, cause and fix, with the platform facts checked against Microsoft Learn (with date and link).
 
 > 🇪🇸 [Leer en español](README.es.md) · The skill body is written mostly in **Spanish**; the key platform sections (§21–§23, §26, §29, §30, §32) are **translated to English** in `references/en/`.
 
 ![Same question answered without and with the skill: a rarely used flow that turned itself off, and a "disabled by your organization" error](docs/demo-with-vs-without-skill.gif)
 
 *Excerpts of real answers from the same model, without the skill (left) and with it (right); highlighted text is what the answer without the skill was missing. n = 1 per condition, abbreviated text.*
+
+## What it does, and what it does not
+
+The skill is **knowledge the agent reads**. It does not connect to anything by itself and it does not sign you in. The work is done by your agent with its own tools (terminal, `pac`, file editing), and the skill tells it the supported way to do it and what goes wrong.
+
+**Typical use.** You ask your agent, in VS Code or in a terminal:
+
+> "Build a public page that sends a form to SharePoint through a Power Automate flow. Create the flow as code with `pac`, import it into my dev environment and give me the page."
+
+With the skill loaded, the agent knows the pipeline (page → HTTP-trigger flow → SharePoint list), the supported CLI path for the flow, the trigger authentication default that returns 401, the limits, and what to ask IT for when policies get in the way.
+
+### What has been tested with a real agent run
+
+Tested on 2026-09-24 with `pac` 2.12.2 in a **developer environment** (not production). Details and traps in §26.7.
+
+| Step | Status |
+|---|---|
+| Sign in from the terminal with `pac auth create --deviceCode` | Tested |
+| Create a solution project and an HTTP-trigger flow **as code**, `pack` and `import` | Tested |
+| Flow turned on after import, without opening the designer | Tested (a flow with no connections) |
+| POST from outside to the trigger URL; run history read with `pac power-automate list-flow-runs` | Tested |
+| Change the flow in code (new field), reimport, new definition live | Tested |
+| SharePoint connection reference in the solution + deployment settings file, import | Import tested |
+| A flow with a SharePoint action turns on and **writes a row** | **Not tested end to end yet** (in progress) |
+| Get the trigger URL from code | **Not possible with `pac`**: copy it from the designer |
+| Create the SharePoint connection from code | Not covered: the tested run created it in the portal |
+| Build Power Apps canvas apps | Not covered (Power Apps appears only as a caller of the flow) |
+
+You still need: `pac` installed and signed in to an environment you may change, a Premium license where the HTTP trigger requires it, and permission on the SharePoint site. Check `pac auth who` before every import so you do not touch the wrong environment.
 
 ## The problem it solves
 
@@ -33,21 +63,22 @@ A strong agent often gets the headline cause on its own. What it usually lacks i
 | **34 sections in 22 reference files**, routed from a light index | You only load what the task needs |
 | **78 error-catalog rows** | Symptom → cause → fix, for runtime traps, not just documentation |
 | **Platform limits and licensing, with sources and dates** | Trigger auth default, Premium, 120 s / 100 MB, thresholds, throttling, auto-suspension, DLP |
-| **Two ways to work with flows as code** | Import package + admin API (unsupported, dev only) and the **supported** path: PAC CLI + Dataverse `workflow` table |
+| **Flows as code, two ways** | The **supported** path (PAC CLI + Dataverse `workflow` table, with a recipe tested in a real run) and the unsupported package + admin API path (dev only) |
 | **Design guidance** | Public-endpoint security, list design and indexes, resilience (try/catch, idempotent retries), personal data |
 | **A tested starter kit** (`assets/spa-starter/`) | SPA with signature, photos, versioned draft, service worker and a send client with idempotent retries; 108 tests |
-| **27 static evals + CI** | Official validator, structure, privacy scan and link check on every push |
+| **29 static evals + CI** | Official validator, structure, privacy scan and link check on every push |
 
 ## Try it: questions the skill is built for
 
 | Ask your agent | It should route to |
 |---|---|
+| "Create an HTTP flow from scratch with `pac` and import it" | §26.7: the tested recipe, with the traps observed and what was **not** tested |
 | "My SPA gets 401 from the flow I just created" | §21.1: the default of *Who can trigger the flow* is **Any user in my tenant**, not *Anyone* |
 | "The run is green but attachments are missing" | §22.1: an early `Response` plus a handled failure; end the Catch with `Terminate → Failed` |
 | "`Get items` returns only 100 rows / empty on a big list" | §23: Top Count, Pagination, indexed columns, the 5,000 threshold |
 | "It works on mobile data but not from the office network" | §29.4: domains IT must allow (`*.logic.azure.com`, `*.api.powerplatform.com`) |
 | "How do I export, edit and re-import a solution flow from the CLI?" | §26: `pac solution export / unpack / pack / import`, deployment settings file |
-| "Can an agent create an HTTP flow from scratch with only `pac`?" | §26.7: a recipe tested on 2026-09-24 in a developer environment (import, activation, outside POST, run history, change by code), with the traps observed and what was **not** tested |
+| "A flow I did not touch turned itself off" | §21.3: 90 days without activity, 14 days of failures, and the exemption for Premium owners or Process licenses |
 | "IT will not give me tenant-wide permissions" | §32: `Sites.Selected` and a one-paragraph request IT can approve |
 | "`Route did not match` on *Get file content*" | §28.2: pass the trigger's `{Identifier}`, not a hand-built path |
 
@@ -65,6 +96,8 @@ npx skills add https://github.com/apu242007/power-automate-sharepoint-skills --s
 ```
 
 Or copy `skills/spa-sharepoint-power-automate/` into your agent's skills folder. Open a new session so the agent loads it, and **read any skill before installing it**: it runs with your agent's permissions.
+
+To follow the tested recipe you also need the [Power Platform CLI](https://learn.microsoft.com/power-platform/developer/cli/introduction) (`pac`), signed in to a development environment.
 
 ## How the content is organised
 
@@ -85,7 +118,7 @@ Or copy `skills/spa-sharepoint-power-automate/` into your agent's skills folder.
 | 23 | SharePoint at scale: thresholds, pagination, throttling | `11-lecturas-sharepoint-a-escala.md` |
 | 24 | Solutions, connection references, environment variables, auditing | `12-alm-soluciones-y-auditoria.md` |
 | 25 | Third-party tools evaluated, ecosystem survey | `13-decisiones-de-herramientas.md` |
-| 26 | Solution flows by code: PAC CLI and Dataverse | `14-soluciones-por-codigo-pac-dataverse.md` |
+| 26 | Solution flows by code: PAC CLI, Dataverse, **tested recipe (§26.7)** | `14-soluciones-por-codigo-pac-dataverse.md` |
 | 27 | SharePoint list design as a backend | `15-diseno-listas-sharepoint.md` |
 | 28 | Flows triggered by a file upload | `16-flujos-disparados-por-archivos.md` |
 | 29 | Tenant governance: DLP, IP firewall, conditional access, network | `17-gobernanza-del-tenant-dlp.md` |
@@ -98,7 +131,8 @@ Or copy `skills/spa-sharepoint-power-automate/` into your agent's skills folder.
 ## Why you can trust it
 
 - **Sources and dates.** Platform facts end with a *Fuentes / Sources* block (Microsoft Learn). Anything not confirmed says **NO VERIFICADO / NOT VERIFIED**, and the origin (official docs, forum, own observation) is labeled.
-- **Validated on every push**: the [agentskills.io reference validator](https://agentskills.io/specification), structure and link checks, a privacy scan (no tenants, emails, trigger URLs), and 27 static evals that keep the router and the key facts from regressing.
+- **Tested claims are labeled as tested.** The flows-as-code recipe (§26.7) comes from a real run with dates and versions, and lists what was not tested.
+- **Validated on every push**: the [agentskills.io reference validator](https://agentskills.io/specification), structure and link checks, a privacy scan (no tenants, emails, trigger URLs), and 29 static evals that keep the router and the key facts from regressing.
 - **Honest about what changes.** Quotas and defaults change: for example, the default for *Who can trigger the flow* on new flows is **Any user in my tenant**, and Microsoft describes *Anyone* as the legacy mode. The changelog records what was checked and when.
 - **Responsible-use notes** where a technique could be misread (§18.1, §20.2): delegated tokens only, visible in sign-in logs, not a replacement for an approved app registration.
 
@@ -106,11 +140,12 @@ Or copy `skills/spa-sharepoint-power-automate/` into your agent's skills folder.
 
 - Field experience plus documentation research; **not official Microsoft documentation**, and not affiliated with Microsoft or any tool mentioned.
 - Built around a real pipeline: public SPA/PWA → HTTP-trigger flow → SharePoint. Dataverse, Power Apps and SPFx are covered only where they touch that pipeline; Microsoft's own [`power-platform-skills`](https://github.com/microsoft/power-platform-skills) and [`pnp/sharepoint-skills`](https://github.com/pnp/sharepoint-skills) go deeper there and complement this one.
+- Changing flows from code changes a real environment. Use a development environment, check the active `pac` profile, and follow your organisation's policies.
 - Argentina-specific details exist (plate formats, holidays, Ley 25.326). §33 is a technical guide, **not legal advice**.
 
 ## Roadmap
 
-See [CHANGELOG.md](CHANGELOG.md) → *Planned*: English translation of the verified sections, server-side PDF, maps/GPS, offline queue, Approvals vs link-based approval, Teams and Adaptive Cards.
+See [CHANGELOG.md](CHANGELOG.md) → *Planned*: the end-to-end test of a flow that writes to SharePoint, Power Apps authoring (`pac canvas`), English translation of the remaining sections, server-side PDF, maps/GPS, offline queue, Approvals vs link-based approval, Teams and Adaptive Cards.
 
 ## Contributing
 
