@@ -8,6 +8,10 @@ Trae las trampas que solo aparecen en ejecución, los límites y licencias que n
 
 > 🇬🇧 [Read in English](README.md) · Las secciones clave de plataforma (§21–§23, §26, §29, §30, §32) tienen **traducción al inglés** en `references/en/`.
 
+![La misma pregunta respondida sin y con la skill: un flow poco usado que se apagó solo, y el error "disabled by your organization"](docs/demo-with-vs-without-skill.gif)
+
+*Extractos de respuestas reales del mismo modelo, sin la skill (izquierda) y con ella (derecha); el texto resaltado es lo que le faltaba a la respuesta sin la skill. n = 1 por condición, texto abreviado.*
+
 ## El problema
 
 Armás un formulario web público, sin login (React/Vite o una PWA estática en GitHub Pages) que hace POST a un **flow de Power Automate con trigger HTTP** que escribe en **SharePoint**. En tu máquina anda. Y después:

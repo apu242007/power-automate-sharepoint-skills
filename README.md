@@ -9,6 +9,10 @@ It carries the traps that only show up at runtime, the limits and licensing that
 
 > 🇪🇸 [Leer en español](README.es.md) · The skill body is written mostly in **Spanish**; the key platform sections (§21–§23, §26, §29, §30, §32) are **translated to English** in `references/en/`.
 
+![Same question answered without and with the skill: a rarely used flow that turned itself off, and a "disabled by your organization" error](docs/demo-with-vs-without-skill.gif)
+
+*Excerpts of real answers from the same model, without the skill (left) and with it (right); highlighted text is what the answer without the skill was missing. n = 1 per condition, abbreviated text.*
+
 ## The problem it solves
 
 You build a public, no-login web form (React/Vite or a static PWA on GitHub Pages) that POSTs to a **Power Automate HTTP-trigger flow** that writes to **SharePoint**. It works on your machine. Then:
