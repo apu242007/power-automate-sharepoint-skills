@@ -12,7 +12,7 @@ description: >-
   file is an index: open the referenced file for the section you need.
 license: MIT
 metadata:
-  version: 1.4.4
+  version: 1.4.5
   updated: '2026-09-24'
 ---
 
@@ -172,6 +172,7 @@ Las que más cuestan cuando se olvidan. Cada una remite a la sección con el por
 
 ## Historial
 
+- **2026-09-24 (10)** — Kit de arranque, tercera ronda de revisión (122 tests): `SP_TOKEN` solo se adjunta a hosts https de SharePoint; una foto que no se pueda re-codificar se omite con aviso en vez de subir el original (EXIF); el service worker precachea los assets del build; las claves del borrador incluyen la ruta de la app; la plantilla del flow exige validar el cuerpo y deduplicar por folio (§9, 3b y 3c); la documentación ya no exagera los reintentos. Versión 1.4.5.
 - **2026-09-24 (9)** — Kit de arranque corregido tras una revisión externa (117 tests): los 500/503 se reintentan solos solo con `serverIdempotent`; el éxito exige 200 con el folio (un 202 vacío es *no confirmado*); el borrador caduca a los 7 días y hay botón para borrarlo; las fotos se re-codifican siempre (sin EXIF); el service worker avisa en vez de recargar; la firma tiene alternativa escrita. Versión 1.4.4.
 - **2026-09-24 (8)** — Correcciones tras una revisión externa, verificadas contra Microsoft Learn: DirectQuery no existe para el conector de listas (§31), los enviados del buzón compartido van a la carpeta de quien envía salvo configuración de Exchange (§30.3), el CORS del trigger pasa a NO VERIFICADO (§9), aclaración sobre la paginación de Get items (§23), validación obligatoria del lado del flow y entrada no confiable en el correo (§9), control de abuso desde el inicio (§1). Versión 1.4.3.
 - **2026-09-24 (7)** — §26.7 completado: prueba de punta a punta con SharePoint (una lista y una columna creadas por un flow programado con llamadas REST, y una fila escrita por un flow HTTP: 200 con el `Id`), la trampa de "Crear elemento" (valida columnas al guardar) y lo que no se confirmó. Versión 1.4.2.

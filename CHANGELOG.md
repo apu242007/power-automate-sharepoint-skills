@@ -11,6 +11,15 @@ Platform facts were verified against Microsoft Learn on the date of each entry; 
 - Find which post-import step (open, turn on, run) actually starts a solution flow that uses a connection reference.
 - Power Apps authoring (`pac canvas`, `pac power-apps` appeared in `pac` 2.12); today the skill covers Power Apps only as a caller of the flow.
 
+## [1.4.5] - 2026-09-24
+
+### Fixed (starter kit, third review round; 122 tests)
+- `SP_TOKEN` is attached only to https SharePoint hosts (`*.sharepoint.com/.us/.cn/.de`) in `spfetch` and `sp-upload-test-file`; other URLs are refused.
+- A photo that cannot be re-encoded (unsupported format or browser failure) is skipped with a warning instead of uploading the original, which could keep EXIF/GPS.
+- The service worker precaches the hashed JS/CSS assets of the build, so a first visit followed by an offline launch can start the app.
+- Draft storage keys include the app base path, so several GitHub Pages projects on the same origin no longer overwrite or purge each other's drafts.
+- The flow template now requires body validation (step 3b) and a duplicate check by folio (step 3c); the docs no longer overstate automatic retries (only `429` retries on its own) or the service-worker reload (the user chooses).
+
 ## [1.4.4] - 2026-09-24
 
 ### Fixed (starter kit, after an external review; 117 tests)
