@@ -7,8 +7,17 @@ Platform facts were verified against Microsoft Learn on the date of each entry; 
 
 ### Planned (known gaps)
 - English translation of the index and the verified reference sections (§21–§26).
-- Starter kit under `assets/` (SPA template plus helper scripts).
 - Server-side PDF generation (Word template + conversion), maps and field GPS, offline queue, Approvals connector vs link-based approval, Teams / Adaptive Cards, trigger conditions and child flows.
+
+## [1.3.0] - 2026-09-24
+
+### Added
+- §34 Starter kit: `assets/spa-starter/` (Vite + React + TypeScript SPA with signature pad, photo compression, versioned draft, service worker and a send client with idempotent retries; 108 tests) and four dependency-free helper scripts (`test-flow`, `spfetch`, `sp-upload-test-file`, `make-icons`).
+- CI job that typechecks, tests and builds the starter on every change.
+- Two more static evals (27 total).
+
+### Not verified
+- The starter has not been exercised in a real browser (canvas compression, touch signature, installed service worker), on a real GitHub Pages deploy, or against a real flow/SharePoint. See §34.7.
 
 ## [1.2.0] - 2026-09-24
 

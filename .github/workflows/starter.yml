@@ -1,0 +1,36 @@
+name: Starter kit
+
+on:
+  push:
+    branches: [main]
+    paths: ['skills/*/assets/spa-starter/**', '.github/workflows/starter.yml']
+  pull_request:
+    paths: ['skills/*/assets/spa-starter/**', '.github/workflows/starter.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  starter:
+    name: Typecheck, test, build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: skills/spa-sharepoint-power-automate/assets/spa-starter
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: skills/spa-sharepoint-power-automate/assets/spa-starter/package-lock.json
+      - run: npm ci
+      - run: npx tsc --noEmit
+      - run: npm test
+      - run: npm run build
+      - name: Helper scripts respond to --help
+        run: |
+          for s in scripts/test-flow.mjs scripts/spfetch.mjs scripts/sp-upload-test-file.mjs scripts/make-icons.mjs; do
+            node "$s" --help > /dev/null
+          done

@@ -26,12 +26,13 @@ Agents usually answer these with generic advice ("check the connection"). This s
 
 | | |
 |---|---|
-| **33 sections in 21 reference files**, routed from a light index | You only load what the task needs |
+| **34 sections in 22 reference files**, routed from a light index | You only load what the task needs |
 | **78 error-catalog rows** | Symptom → cause → fix, for runtime traps, not just documentation |
 | **Platform limits and licensing, with sources and dates** | Trigger auth default, Premium, 120 s / 100 MB, thresholds, throttling, auto-suspension, DLP |
 | **Two ways to work with flows as code** | Import package + admin API (unsupported, dev only) and the **supported** path: PAC CLI + Dataverse `workflow` table |
 | **Design guidance** | Public-endpoint security, list design and indexes, resilience (try/catch, idempotent retries), personal data |
-| **25 static evals + CI** | Official validator, structure, privacy scan and link check on every push |
+| **A tested starter kit** (`assets/spa-starter/`) | SPA with signature, photos, versioned draft, service worker and a send client with idempotent retries; 108 tests |
+| **27 static evals + CI** | Official validator, structure, privacy scan and link check on every push |
 
 ## Try it: questions the skill is built for
 
@@ -87,11 +88,12 @@ Or copy `skills/spa-sharepoint-power-automate/` into your agent's skills folder.
 | 31 | Reporting and Power BI on lists | `19-reportes-power-bi-listas.md` |
 | 32 | `Sites.Selected` and Graph with least privilege | `20-permisos-graph-sites-selected.md` |
 | 33 | Personal data in field apps | `21-datos-personales.md` |
+| 34 | Starter kit: tested SPA + scripts | `22-kit-de-arranque.md` |
 
 ## Why you can trust it
 
 - **Sources and dates.** Platform facts end with a *Fuentes / Sources* block (Microsoft Learn). Anything not confirmed says **NO VERIFICADO / NOT VERIFIED**, and the origin (official docs, forum, own observation) is labeled.
-- **Validated on every push**: the [agentskills.io reference validator](https://agentskills.io/specification), structure and link checks, a privacy scan (no tenants, emails, trigger URLs), and 25 static evals that keep the router and the key facts from regressing.
+- **Validated on every push**: the [agentskills.io reference validator](https://agentskills.io/specification), structure and link checks, a privacy scan (no tenants, emails, trigger URLs), and 27 static evals that keep the router and the key facts from regressing.
 - **Honest about what changes.** Quotas and defaults change: for example, the default for *Who can trigger the flow* on new flows is **Any user in my tenant**, and Microsoft describes *Anyone* as the legacy mode. The changelog records what was checked and when.
 - **Responsible-use notes** where a technique could be misread (§18.1, §20.2): delegated tokens only, visible in sign-in logs, not a replacement for an approved app registration.
 
@@ -103,7 +105,7 @@ Or copy `skills/spa-sharepoint-power-automate/` into your agent's skills folder.
 
 ## Roadmap
 
-See [CHANGELOG.md](CHANGELOG.md) → *Planned*: English translation of the verified sections, a starter kit, server-side PDF, maps/GPS, offline queue, Approvals vs link-based approval, Teams and Adaptive Cards.
+See [CHANGELOG.md](CHANGELOG.md) → *Planned*: English translation of the verified sections, server-side PDF, maps/GPS, offline queue, Approvals vs link-based approval, Teams and Adaptive Cards.
 
 ## Contributing
 

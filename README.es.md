@@ -23,12 +23,13 @@ Los agentes suelen contestar consejos genéricos ("revisá la conexión"). Esta 
 
 ## Qué incluye
 
-- **33 secciones en 21 archivos de referencia**, enrutados desde un índice liviano: el agente carga solo lo que necesita.
+- **34 secciones en 22 archivos de referencia**, enrutados desde un índice liviano: el agente carga solo lo que necesita.
 - **78 filas de catálogo de errores**: síntoma → causa → arreglo.
 - **Límites y licencias con fuente y fecha**: default de autenticación del trigger, Premium, 120 s / 100 MB, umbrales, throttling, apagado automático, DLP.
 - **Dos caminos para flows como código**: paquete + API de administración (no soportada, solo desarrollo) y el camino **soportado**: PAC CLI + tabla `workflow` de Dataverse.
+- **Kit de arranque probado** (`assets/spa-starter/`): SPA con firma, fotos, borrador versionado, service worker y cliente de envío con reintentos idempotentes; 108 tests.
 - **Diseño**: seguridad de un endpoint público, listas e índices, resiliencia (try/catch, reintentos idempotentes) y datos personales.
-- **25 evals estáticos + CI** en cada push: validador oficial, estructura, escaneo de privacidad y enlaces.
+- **27 evals estáticos + CI** en cada push: validador oficial, estructura, escaneo de privacidad y enlaces.
 
 ## Preguntas para las que está hecha
 

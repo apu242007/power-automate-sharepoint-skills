@@ -8,11 +8,11 @@ description: >-
   Response, idempotent retries, solutions/connection references/environment variables, PAC CLI and Dataverse,
   flows-as-code, SharePoint REST columns, list design, flows triggered by a file upload ('Route did not match'),
   PWA/service worker, GitHub Pages deploy and an error catalog. Also tenant governance (DLP, corporate network),
-  Outlook limits, Power BI on lists, Sites.Selected and personal data. This file is an index: open the
-  referenced file for the section you need.
+  Outlook limits, Power BI on lists, Sites.Selected and personal data. Includes a tested SPA starter kit. This
+  file is an index: open the referenced file for the section you need.
 license: MIT
 metadata:
-  version: 1.2.0
+  version: 1.3.0
   updated: '2026-09-24'
 ---
 
@@ -99,6 +99,7 @@ Esta skill se dividió (2026-09-24) en un índice liviano y `references/` con el
 | Power BI / dashboards sobre listas: refresco, 12 uniones, UTC | `19` §31 |
 | Acceso por API con el mínimo permiso: `Sites.Selected`, Graph app-only, qué pedirle a IT | `20` §32 |
 | Datos personales (DNI, GPS, fotos, firmas), consentimiento, retención | `21` §33 |
+| Arrancar una SPA nueva sin reescribir firma, fotos, borrador, service worker, envío con reintentos; probar un flow sin navegador | `22` §34 (código en `assets/spa-starter/`) |
 | "¿Instalamos esta skill/herramienta/servicio de terceros?" | `13` §25 |
 
 ## Índice: número de sección → archivo
@@ -126,6 +127,7 @@ Esta skill se dividió (2026-09-24) en un índice liviano y `references/` con el
 | **31** | **Reportes y Power BI sobre listas** *(nuevo)* | `19-reportes-power-bi-listas.md` |
 | **32** | **`Sites.Selected` y Graph con el mínimo permiso** *(nuevo)* | `20-permisos-graph-sites-selected.md` |
 | **33** | **Datos personales en apps de campo** *(nuevo)* | `21-datos-personales.md` |
+| **34** | **Kit de arranque: SPA probada + scripts** *(nuevo)* | `22-kit-de-arranque.md` |
 
 ## Reglas que no se negocian
 
@@ -156,6 +158,7 @@ Las que más cuestan cuando se olvidan. Cada una remite a la sección con el por
 
 ## Historial
 
+- **2026-09-24 (4)** — Nuevo: §34 kit de arranque (`assets/spa-starter/`: SPA Vite + React + TypeScript con firma, fotos, borrador versionado, service worker y cliente de envío con reintentos; 108 tests; 4 scripts sin dependencias). Versión 1.3.0.
 - **2026-09-24 (3)** — Nuevos: §29 gobernanza del tenant (DLP, firewall de IP, acceso condicional, dominios de red), §30 correo, §31 reportes y Power BI, §32 `Sites.Selected` y Graph, §33 datos personales. §14 actualizado con la pirámide de pruebas. Versión 1.2.0.
 - **2026-09-24 (2)** — Nuevos: §26 flows de solución por código (PAC CLI, Dataverse `workflow`), §27 diseño de listas, §28 flujos disparados por archivos (en una versión anterior figuraba como §18). §17 +4 filas, §15 guía "si una corrección no funciona", §9 nota a §28.5, §20 aviso de soporte de `api.flow.microsoft.com`, §24.3 verificado, §25.4 relevamiento del ecosistema.
 - **2026-09-24** — Se divide el monolito de 2.654 líneas en índice + 8 archivos de referencia (contenido idéntico; `§1–§20` intactos). Descripción acortada (de ~2.000 a ~1.000 caracteres). Nuevos: §21 trigger/licencias/límites, §22 resiliencia, §23 SharePoint a escala, §24 ALM y auditoría, §25 registro de herramientas evaluadas. Datos verificados contra Microsoft Learn el mismo día.
