@@ -82,7 +82,7 @@ Un agente potente muchas veces acierta la causa principal por su cuenta. Lo que 
 - **78 filas de catálogo de errores**: síntoma → causa → arreglo.
 - **Límites y licencias con fuente y fecha**: default de autenticación del trigger, Premium, 120 s / 100 MB, umbrales, throttling, apagado automático, DLP.
 - **Flows como código, de dos maneras**: el camino **soportado** (PAC CLI + tabla `workflow` de Dataverse, con una receta probada en una corrida real) y el camino no soportado de paquete + API de administración (solo desarrollo).
-- **Kit de arranque probado** (`assets/spa-starter/`): SPA con firma, fotos, borrador versionado, service worker y cliente de envío con reintentos idempotentes; 108 tests.
+- **Kit de arranque probado** (`assets/spa-starter/`): SPA con firma, fotos, borrador versionado, service worker y cliente de envío con reintentos idempotentes; 117 tests.
 - **Diseño**: seguridad de un endpoint público, listas e índices, resiliencia (try/catch, reintentos idempotentes) y datos personales.
 - **29 evals estáticos + CI** en cada push: validador oficial, estructura, escaneo de privacidad y enlaces.
 

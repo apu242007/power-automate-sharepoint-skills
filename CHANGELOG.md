@@ -11,6 +11,17 @@ Platform facts were verified against Microsoft Learn on the date of each entry; 
 - Find which post-import step (open, turn on, run) actually starts a solution flow that uses a connection reference.
 - Power Apps authoring (`pac canvas`, `pac power-apps` appeared in `pac` 2.12); today the skill covers Power Apps only as a caller of the flow.
 
+## [1.4.4] - 2026-09-24
+
+### Fixed (starter kit, after an external review; 117 tests)
+- Automatic retries: only `429` retries on its own; `500`/`503` retry only with `serverIdempotent: true`, to be enabled only when the flow deduplicates by folio.
+- Success requires `200` with the folio in the body; an empty `202` or a `200` without the folio is reported as *unconfirmed* and the draft is kept.
+- Drafts expire after 7 days and there is a "delete my data on this device" button.
+- Photos are always re-encoded through a canvas (EXIF, including GPS, is dropped), even when already small.
+- The service worker no longer reloads the page on update; it shows a banner instead, so chosen photos are not lost.
+- The signature has a typed-name alternative for keyboard and screen-reader users.
+- CORS/preflight of the trigger documented as NOT VERIFIED next to the client code.
+
 ## [1.4.3] - 2026-09-24
 
 ### Fixed
@@ -21,9 +32,6 @@ Platform facts were verified against Microsoft Learn on the date of each entry; 
 - §9: server-side validation of the request body is mandatory when the trigger schema is empty, and email bodies and attachments from a public caller are untrusted.
 - §1: rate limiting and bot verification in a gateway from the start, since the trigger URL and shared key are readable in the public bundle.
 - Removed a reference to material that is not distributed, and a pointer to a missing file.
-
-### Known open items (from an external review)
-- Starter kit: automatic retries need mandatory server-side idempotency; 2xx (including an empty 202) is treated as success; the signature pad has no keyboard alternative; drafts do not expire; small JPEGs keep their EXIF; the service worker reloads immediately on update.
 
 ## [1.4.2] - 2026-09-24
 

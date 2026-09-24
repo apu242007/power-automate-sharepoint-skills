@@ -86,7 +86,7 @@ A strong agent often gets the headline cause on its own. What it usually lacks i
 | **Platform limits and licensing, with sources and dates** | Trigger auth default, Premium, 120 s / 100 MB, thresholds, throttling, auto-suspension, DLP |
 | **Flows as code, two ways** | The **supported** path (PAC CLI + Dataverse `workflow` table, with a recipe tested in a real run) and the unsupported package + admin API path (dev only) |
 | **Design guidance** | Public-endpoint security, list design and indexes, resilience (try/catch, idempotent retries), personal data |
-| **A tested starter kit** (`assets/spa-starter/`) | SPA with signature, photos, versioned draft, service worker and a send client with idempotent retries; 108 tests |
+| **A tested starter kit** (`assets/spa-starter/`) | SPA with signature, photos, versioned draft, service worker and a send client with idempotent retries; 117 tests |
 | **29 static evals + CI** | Official validator, structure, privacy scan and link check on every push |
 
 ## Try it: questions the skill is built for
