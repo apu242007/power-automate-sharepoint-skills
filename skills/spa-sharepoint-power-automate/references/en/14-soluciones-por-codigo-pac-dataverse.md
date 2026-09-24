@@ -124,6 +124,31 @@ DELETE …/workflows(<workflowid>)
 
 Third-party skills that touch this path: `alvinwills/power-automate-claude-skills` (`power-automate-pac`: export with PAC, edit the JSON on disk, reimport), `tomdam/flowforger` (pull and push flows from Dataverse), `excelano/paxc` (a DSL compiler), `ericrisco/rsc-harness` and `mbadali25/useful-claude-add-ons` (Dataverse Web API / flows API). None covers our public SPA context or the traps of §20.4. Full registry in §25.
 
+## 26.7 Tested recipe: an HTTP flow created from scratch with `pac` only (real test, 2026-09-24)
+
+Tested with `pac` 2.12.2 in a **developer** environment (not production). Anything not tested is marked.
+
+1. **`pac` has to start.** On one machine the installed 2.7.4 failed with "the system cannot find the file specified"; `pac install latest` moved it to 2.12.2 and it worked. `pac --version` does not exist: use `pac help`. In Git Bash on Windows `pac` is not on the PATH: run it as `powershell -NoProfile -Command "pac ..."`.
+2. **Sign in without a browser:** `pac auth create --name Dev --environment "<url>" --deviceCode`, then confirm with `pac auth who` and `pac org who`. If the token expired, the error is `AADSTS50173` and the profile has to be created again.
+3. **Project:** `pac solution init --publisher-name X --publisher-prefix xx --outputDirectory sol`. **It does not create the flows folder.** The solution `UniqueName` comes from the output folder name: fix it in `Other/Solution.xml` **before the first import**, because changing it later creates a second solution in the environment.
+4. **The flow:** generate `src/Workflows/<Name>-<GUID IN UPPERCASE>.json` with a script that serializes JSON (not text templates): `properties.definition` with a `Request` / `Http` trigger and `"triggerAuthenticationType": "All"` if a public web page calls it (§21.1).
+5. **Register it:** in `Other/Customizations.xml`, inside `<Workflows>`, a `<Workflow WorkflowId="{GUID IN UPPERCASE}" Name="...">` with `JsonFileName`, `Type` 1, `Category` 5, `Scope` 4, `StateCode` 1, `StatusCode` 2 and `PrimaryEntity` none (the same fields as a real export). In `Other/Solution.xml`: `<Managed>0</Managed>` and, in `<RootComponents>`, `<RootComponent type="29" id="{guid in lowercase}" behavior="0" />`.
+6. **Pack and import:** `pac solution pack --zipfile x.zip --folder .\sol\src --packagetype Unmanaged` and `pac solution import --path x.zip --publish-changes`.
+
+**What was observed:**
+
+- `StateCode` 1 / `StatusCode` 2 in the XML left the flow turned on after import (a flow with no connections). `pac power-automate list-cloud-flows --workflow-id <id>` showed `stateCode: Published`.
+- An outside POST to the trigger URL answered 200, and `pac power-automate list-flow-runs --workflow-id <id>` showed the run as `Succeeded`.
+- Changing the flow in code (a new field in the schema and in the response), repacking and reimporting gave "The original workflow definition has been deactivated and replaced", and the new definition was live.
+
+**Traps observed** (not in Microsoft documentation: **NOT VERIFIED** outside this test):
+
+- **GUID letter case.** With the GUID in lowercase in both the `<Workflow>` and the `RootComponent`, `pack` warned "root components are not defined in customizations". With uppercase in both, `import` failed with "component ... of type 29 is not declared in the solution file as a root component". It worked with `WorkflowId` and the file name in uppercase and the `RootComponent` `id` in lowercase.
+- **The trigger URL does not come from `pac`.** Copy it from the designer (§26.5, point 1). `pac power-automate` (2.12, preview, read-only: `list-cloud-flows`, `list-flow-actions`, `list-flow-runs`) shows status and runs, not the URL.
+- **Value type.** An `@{...}` expression inside a JSON object returned text (`"True"`). To keep the boolean, the expression goes alone: `"@coalesce(...)"`. This fix was not tested.
+- **A flow with SharePoint: the connection reference.** Create it once in the portal (Solutions, New, More, Connection reference) and export the solution (`pac solution export` and `unpack`) to copy its XML. It sits in `Other/Customizations.xml` as `<connectionreferences><connectionreference connectionreferencelogicalname="...">` with `connectionreferencedisplayname`, `connectorid`, `iscustomizable`, `promptingbehavior`, `statecode` and `statuscode`, and it is **not** listed as a `RootComponent`. Declaring it as a `RootComponent` of type 372 failed ("not in the target system") and with 10150 it failed ("Invalid component type"). The connection id goes in the deployment settings file (`--settings-file`, §26.3). With the reference and that file, the import finished correctly.
+- **Not tested end to end:** that a flow with a SharePoint action is turned on after the import and writes the row. In the test, the flow with the action stayed in draft after import (cause not confirmed).
+
 ## Sources (Microsoft Learn)
 
 - *Work with cloud flows using code* — `learn.microsoft.com/power-automate/manage-flows-with-code`

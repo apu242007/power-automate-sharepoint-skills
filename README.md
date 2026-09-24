@@ -47,6 +47,7 @@ A strong agent often gets the headline cause on its own. What it usually lacks i
 | "`Get items` returns only 100 rows / empty on a big list" | §23: Top Count, Pagination, indexed columns, the 5,000 threshold |
 | "It works on mobile data but not from the office network" | §29.4: domains IT must allow (`*.logic.azure.com`, `*.api.powerplatform.com`) |
 | "How do I export, edit and re-import a solution flow from the CLI?" | §26: `pac solution export / unpack / pack / import`, deployment settings file |
+| "Can an agent create an HTTP flow from scratch with only `pac`?" | §26.7: a recipe tested on 2026-09-24 in a developer environment (import, activation, outside POST, run history, change by code), with the traps observed and what was **not** tested |
 | "IT will not give me tenant-wide permissions" | §32: `Sites.Selected` and a one-paragraph request IT can approve |
 | "`Route did not match` on *Get file content*" | §28.2: pass the trigger's `{Identifier}`, not a hand-built path |
 

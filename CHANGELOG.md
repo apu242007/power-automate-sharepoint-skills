@@ -5,15 +5,22 @@ Platform facts were verified against Microsoft Learn on the date of each entry; 
 
 ## [Unreleased]
 
+### Planned (known gaps)
+- English translation of the remaining sections (§1–§20, §24, §25, §27, §28, §31, §33, §34).
+- Server-side PDF generation (Word template + conversion), maps and field GPS, offline queue, Approvals connector vs link-based approval, Teams / Adaptive Cards, trigger conditions and child flows.
+- End-to-end test of a solution flow with a SharePoint action (in progress; the import and connection reference step is covered in §26.7).
+- Power Apps authoring (`pac canvas`, `pac power-apps` appeared in `pac` 2.12); today the skill covers Power Apps only as a caller of the flow.
+
+## [1.4.1] - 2026-09-24
+
 ### Added
+- §26.7 (Spanish and English): a recipe tested with `pac` 2.12.2 in a developer environment for creating an HTTP flow from scratch: install and device-code sign-in, solution project, flow JSON, registration in `Customizations.xml` / `Solution.xml`, pack, import, activation, an outside POST, run history with `pac power-automate list-flow-runs`, and a change by code. Traps observed and marked NOT VERIFIED outside the test: GUID letter case in `pack` / `import`, the connection reference format, `@{...}` returning text. What was not tested is stated.
+
+### Added (evaluation)
 - `evals/comparison.md`: an 8-symptom with/without comparison (25/44 verified facts without the skill, 44/44 with it; n = 1, facts drawn from the skill, so biased by construction).
 
 ### Changed
 - README: removed the claim that agents "usually answer with generic advice"; the comparison shows a strong agent gets the headline cause and the skill adds second-order detail, caveats and sources.
-
-### Planned (known gaps)
-- English translation of the remaining sections (§1–§20, §24, §25, §27, §28, §31, §33, §34).
-- Server-side PDF generation (Word template + conversion), maps and field GPS, offline queue, Approvals connector vs link-based approval, Teams / Adaptive Cards, trigger conditions and child flows.
 
 ## [1.4.0] - 2026-09-24
 

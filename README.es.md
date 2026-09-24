@@ -44,6 +44,7 @@ Un agente potente muchas veces acierta la causa principal por su cuenta. Lo que 
 | "`Get items` trae solo 100 / vacío en una lista grande" | §23: Top Count, paginación, columnas indexadas y el umbral de 5.000 |
 | "Anda con datos móviles pero no desde la oficina" | §29.4: dominios que IT debe permitir |
 | "¿Cómo exporto, edito y reimporto un flow de solución por CLI?" | §26: `pac solution export / unpack / pack / import` |
+| "¿Puede un agente crear un flow HTTP desde cero solo con `pac`?" | §26.7: receta probada el 2026-09-24 en un entorno de desarrollador (import, activación, POST desde fuera, historial de corridas, cambio por código), con las trampas observadas y lo que **no** se probó |
 | "IT no me da permisos sobre todo el tenant" | §32: `Sites.Selected` y un pedido corto y aprobable |
 | "`Route did not match` en *Get file content*" | §28.2: pasar `{Identifier}`, no una ruta armada a mano |
 
