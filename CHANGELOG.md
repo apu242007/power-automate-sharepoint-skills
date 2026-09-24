@@ -20,6 +20,7 @@ Platform facts were verified against Microsoft Learn on the date of each entry; 
 - Photos are always re-encoded through a canvas (EXIF, including GPS, is dropped), even when already small.
 - The service worker no longer reloads the page on update; it shows a banner instead, so chosen photos are not lost.
 - The signature has a typed-name alternative for keyboard and screen-reader users.
+- `sp-upload-test-file` no longer overwrites an existing file by default (`overwrite=false`); pass `--overwrite` to allow it.
 - CORS/preflight of the trigger documented as NOT VERIFIED next to the client code.
 
 ## [1.4.3] - 2026-09-24
