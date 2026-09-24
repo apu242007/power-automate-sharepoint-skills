@@ -25,6 +25,26 @@ What actually catches regressions here:
 
 Don't pretend a green `tsc` means "tested". State explicitly what was and wasn't verified.
 
+## Actualización (2026-09-24): qué conviene probar hoy
+
+La sección de arriba describe el proyecto de referencia original, que no traía pruebas automatizadas. En la práctica posterior del autor sí se probaron las piezas deterministas en **10 repos**, y se comprobó que rinde. Pirámide recomendada para este pipeline:
+
+| Nivel | Qué probar | Herramienta | Sección |
+|---|---|---|---|
+| **Unitarias** (rápidas, sin red) | Funciones puras: formato de patente, parseo de números es-AR, versión y purga del borrador, cálculo de límites de imágenes, armado del payload | `vitest` | §4, §6 |
+| **Contrato del payload** | Que lo que la SPA envía tenga los campos y tipos que el flow espera (un archivo de ejemplo compartido) | `vitest` + JSON de ejemplo | §8 |
+| **Cliente de envío** | 200, 401/403, 429 con `Retry-After`, 502/504, timeout y modo demo, con `fetch` simulado | `vitest` | §21, §22, §23.4 |
+| **Flow de punta a punta** | POST real a un flow de **prueba**, lectura del ítem creado y verificación de columnas, adjuntos e hijos | script de humo (`scripts/test-flow.mjs` del kit de arranque) | §20.7, §28.8 |
+| **Definición del flow** | Reglas de buenas prácticas sobre la solución exportada | `pac solution check`, skill `powercat-overflow` | §24.5, §26 |
+| **En el celular** | Firma, cámara, GPS, instalación de la PWA y actualización del service worker | Manual, en un teléfono real | §5, §7 |
+
+Reglas:
+
+- **El flow de prueba es un flow aparte**, con su propia URL y su propia lista (§9, "Flow backup & environments"); nunca se prueba contra producción.
+- Los tests **no llevan la URL real** del trigger ni claves: van por variables de entorno.
+- Un test verde **no** reemplaza la prueba manual en un teléfono real: el 50% de los errores de este pipeline solo aparece en móvil.
+- Al terminar, decí **qué se probó y qué no** (regla 15 del índice).
+
 ---
 
 # 15 · Diagnostic playbook

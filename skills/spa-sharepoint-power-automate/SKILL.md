@@ -7,11 +7,12 @@ description: >-
   items 5,000 threshold and pagination, 429 throttling, try/catch/Terminate and silent failures after an early
   Response, idempotent retries, solutions/connection references/environment variables, PAC CLI and Dataverse,
   flows-as-code, SharePoint REST columns, list design, flows triggered by a file upload ('Route did not match'),
-  PWA/service worker, GitHub Pages deploy and an error catalog. This file is an index: open the referenced file
-  for the section you need.
+  PWA/service worker, GitHub Pages deploy and an error catalog. Also tenant governance (DLP, corporate network),
+  Outlook limits, Power BI on lists, Sites.Selected and personal data. This file is an index: open the
+  referenced file for the section you need.
 license: MIT
 metadata:
-  version: 1.1.0
+  version: 1.2.0
   updated: '2026-09-24'
 ---
 
@@ -93,6 +94,11 @@ Esta skill se dividió (2026-09-24) en un índice liviano y `references/` con el
 | Flow que se dispara **al subir un archivo** a SharePoint (`Route did not match`, `{Name}` sin extensión, tarda en reaccionar, "Conexión no válida") | `16` §28 |
 | Flows de **solución** por código: `pac solution`, tabla `workflow` de Dataverse, archivo de despliegue | `14` §26 |
 | Diseñar una lista nueva (tipos de columna, índices, permisos, relaciones, archivado) | `15` §27 |
+| El flow no dispara en la empresa: "disabled by your organization", DLP, firewall, proxy, acceso condicional; qué pedirle a IT | `17` §29 |
+| Correo: límites, adjuntos, buzón compartido, un correo por elemento, `Item ID doesn't belong to current mailbox` | `18` §30 |
+| Power BI / dashboards sobre listas: refresco, 12 uniones, UTC | `19` §31 |
+| Acceso por API con el mínimo permiso: `Sites.Selected`, Graph app-only, qué pedirle a IT | `20` §32 |
+| Datos personales (DNI, GPS, fotos, firmas), consentimiento, retención | `21` §33 |
 | "¿Instalamos esta skill/herramienta/servicio de terceros?" | `13` §25 |
 
 ## Índice: número de sección → archivo
@@ -115,6 +121,11 @@ Esta skill se dividió (2026-09-24) en un índice liviano y `references/` con el
 | **26** | **Flows de soluciones por código: PAC CLI y Dataverse** *(nuevo)* | `14-soluciones-por-codigo-pac-dataverse.md` |
 | **27** | **Diseño de listas de SharePoint como backend** *(nuevo)* | `15-diseno-listas-sharepoint.md` |
 | **28** | **Flujos que se disparan al subir un archivo** *(nuevo)* | `16-flujos-disparados-por-archivos.md` |
+| **29** | **Gobernanza del tenant: DLP, firewall, acceso condicional, red** *(nuevo)* | `17-gobernanza-del-tenant-dlp.md` |
+| **30** | **Correo desde el flow: límites y trampas** *(nuevo)* | `18-correo-outlook.md` |
+| **31** | **Reportes y Power BI sobre listas** *(nuevo)* | `19-reportes-power-bi-listas.md` |
+| **32** | **`Sites.Selected` y Graph con el mínimo permiso** *(nuevo)* | `20-permisos-graph-sites-selected.md` |
+| **33** | **Datos personales en apps de campo** *(nuevo)* | `21-datos-personales.md` |
 
 ## Reglas que no se negocian
 
@@ -145,5 +156,6 @@ Las que más cuestan cuando se olvidan. Cada una remite a la sección con el por
 
 ## Historial
 
+- **2026-09-24 (3)** — Nuevos: §29 gobernanza del tenant (DLP, firewall de IP, acceso condicional, dominios de red), §30 correo, §31 reportes y Power BI, §32 `Sites.Selected` y Graph, §33 datos personales. §14 actualizado con la pirámide de pruebas. Versión 1.2.0.
 - **2026-09-24 (2)** — Nuevos: §26 flows de solución por código (PAC CLI, Dataverse `workflow`), §27 diseño de listas, §28 flujos disparados por archivos (en una versión anterior figuraba como §18). §17 +4 filas, §15 guía "si una corrección no funciona", §9 nota a §28.5, §20 aviso de soporte de `api.flow.microsoft.com`, §24.3 verificado, §25.4 relevamiento del ecosistema.
 - **2026-09-24** — Se divide el monolito de 2.654 líneas en índice + 8 archivos de referencia (contenido idéntico; `§1–§20` intactos). Descripción acortada (de ~2.000 a ~1.000 caracteres). Nuevos: §21 trigger/licencias/límites, §22 resiliencia, §23 SharePoint a escala, §24 ALM y auditoría, §25 registro de herramientas evaluadas. Datos verificados contra Microsoft Learn el mismo día.

@@ -1,0 +1,60 @@
+name: Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Skills, links, privacy and evals
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Official skill validator (agentskills.io reference)
+        run: |
+          for d in skills/*/; do
+            npx --yes skills-ref validate "$d"
+          done
+
+      - name: Structure, description length, index and internal links
+        run: node scripts/check-skill.mjs
+
+      - name: Static evals (router and required facts)
+        run: node scripts/run-evals.mjs
+
+      - name: Privacy scan (generic rules plus private denylist)
+        env:
+          # Optional repository secret with a regex of private terms (company, projects). Never committed.
+          PRIVACY_DENYLIST: ${{ secrets.PRIVACY_DENYLIST }}
+        run: node scripts/check-privacy.mjs
+
+      - name: Claude Code marketplace manifest
+        run: npx --yes @anthropic-ai/claude-code plugin validate .
+        continue-on-error: true
+
+  links:
+    name: External links
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --no-progress --max-concurrency 4 --retry-wait-time 5 --max-retries 2
+            --accept 200,204,206,429
+            --exclude '^https://make\.powerautomate\.com'
+            --exclude '^https://.*\.sharepoint\.com'
+            --exclude '^https://login\.'
+            './**/*.md'
+          fail: false

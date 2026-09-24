@@ -1,0 +1,21 @@
+name: Wrong or outdated fact / Dato incorrecto o desactualizado
+description: A limit, default or behavior in the skill that changed or is wrong.
+labels: [accuracy]
+body:
+  - type: input
+    id: where
+    attributes:
+      label: File and section / Archivo y sección
+      placeholder: "references/09-licencias-limites-trigger.md §21.1"
+    validations: {required: true}
+  - type: textarea
+    id: claim
+    attributes:
+      label: What the skill says / Qué dice
+    validations: {required: true}
+  - type: textarea
+    id: correct
+    attributes:
+      label: What is correct, with the source / Qué es correcto, con fuente
+      description: Link to the documentation or describe how you verified it, and the date.
+    validations: {required: true}

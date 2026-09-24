@@ -2,3 +2,7 @@
 Thumbs.db
 *.bak
 *.tmp
+node_modules/
+dist/
+# lista privada de terminos a bloquear en el escaneo de privacidad (NO se versiona)
+.privacy-denylist

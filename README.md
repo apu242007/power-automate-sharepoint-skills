@@ -1,75 +1,114 @@
 # power-automate-sharepoint-skills
 
-Skill para agentes de código (Claude Code, Codex, Copilot, Gemini CLI, Cline y otros) con la experiencia acumulada de construir **aplicaciones web públicas sin login que envían datos a SharePoint mediante un flow de Power Automate**, y de operar ese pipeline en producción.
+[![Validate](https://github.com/apu242007/power-automate-sharepoint-skills/actions/workflows/validate.yml/badge.svg)](https://github.com/apu242007/power-automate-sharepoint-skills/actions/workflows/validate.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Agent Skills](https://img.shields.io/badge/agent%20skills-agentskills.io-informational)](https://agentskills.io/specification)
 
-> **English summary:** an agent skill covering the full *SPA → Power Automate HTTP trigger → SharePoint* pipeline (React/Vite or static PWA on GitHub Pages): trigger auth defaults, Premium licensing, request limits, silent failures after an early `Response`, idempotent retries, `Get items` thresholds and pagination, 429/`Retry-After` handling, flows-as-code (import package + admin API + run history), SharePoint REST setup, solutions/connection references/environment variables, and a unified error catalog. Content is in Spanish (with English in parts).
+**An agent skill that knows why your Power Automate + SharePoint pipeline broke.**
+It carries the traps that only show up at runtime, the limits and licensing that nobody warns you about, and the tenant policies your IT team applies, all with the exact symptom, the cause, and a fix, and with the platform facts checked against Microsoft Learn (with date and link).
 
-## Instalar
+> 🇪🇸 [Leer en español](README.es.md) · The skill content is written mostly in **Spanish** (with English where the platform terms are English).
+
+## The problem it solves
+
+You build a public, no-login web form (React/Vite or a static PWA on GitHub Pages) that POSTs to a **Power Automate HTTP-trigger flow** that writes to **SharePoint**. It works on your machine. Then:
+
+- the new flow returns **401** to the browser and the run history is empty,
+- the run is green but the **attachments are missing**,
+- `Get items` returns **100 rows**, or nothing at all past **5,000**,
+- the flow **stops on its own**, or fails with `DirectApiAuthorizationRequired`,
+- it works on mobile data and fails on the **corporate network**,
+- `Get file content` says `Route did not match` with a perfectly good path.
+
+Agents usually answer these with generic advice ("check the connection"). This skill gives them the specific, verified answer.
+
+## What you get
+
+| | |
+|---|---|
+| **33 sections in 21 reference files**, routed from a light index | You only load what the task needs |
+| **78 error-catalog rows** | Symptom → cause → fix, for runtime traps, not just documentation |
+| **Platform limits and licensing, with sources and dates** | Trigger auth default, Premium, 120 s / 100 MB, thresholds, throttling, auto-suspension, DLP |
+| **Two ways to work with flows as code** | Import package + admin API (unsupported, dev only) and the **supported** path: PAC CLI + Dataverse `workflow` table |
+| **Design guidance** | Public-endpoint security, list design and indexes, resilience (try/catch, idempotent retries), personal data |
+| **25 static evals + CI** | Official validator, structure, privacy scan and link check on every push |
+
+## Try it: questions the skill is built for
+
+| Ask your agent | It should route to |
+|---|---|
+| "My SPA gets 401 from the flow I just created" | §21.1: the default of *Who can trigger the flow* is **Any user in my tenant**, not *Anyone* |
+| "The run is green but attachments are missing" | §22.1: an early `Response` plus a handled failure; end the Catch with `Terminate → Failed` |
+| "`Get items` returns only 100 rows / empty on a big list" | §23: Top Count, Pagination, indexed columns, the 5,000 threshold |
+| "It works on mobile data but not from the office network" | §29.4: domains IT must allow (`*.logic.azure.com`, `*.api.powerplatform.com`) |
+| "How do I export, edit and re-import a solution flow from the CLI?" | §26: `pac solution export / unpack / pack / import`, deployment settings file |
+| "IT will not give me tenant-wide permissions" | §32: `Sites.Selected` and a one-paragraph request IT can approve |
+| "`Route did not match` on *Get file content*" | §28.2: pass the trigger's `{Identifier}`, not a hand-built path |
+
+## Install
 
 ```bash
+# any agent supported by the skills CLI (Claude Code, Codex, Copilot, Cursor, Gemini CLI, Cline, ...)
 npx skills add https://github.com/apu242007/power-automate-sharepoint-skills --skill spa-sharepoint-power-automate
 ```
 
-Abrí una sesión nueva del agente para que la cargue. Revisá siempre el contenido de una skill antes de instalarla: corre con los permisos de tu agente.
+```text
+# Claude Code plugin marketplace
+/plugin marketplace add apu242007/power-automate-sharepoint-skills
+/plugin install spa-sharepoint-power-automate@power-automate-sharepoint-skills
+```
 
-## Qué hay adentro
+Or copy `skills/spa-sharepoint-power-automate/` into your agent's skills folder. Open a new session so the agent loads it, and **read any skill before installing it**: it runs with your agent's permissions.
 
-`SKILL.md` es un **índice liviano** (router "problema → archivo" y 16 reglas que no se negocian). El detalle está en `references/` y el agente abre solo lo que necesita.
+## How the content is organised
 
-| § | Tema | Archivo |
+`SKILL.md` is a light index (router from symptom to file, plus 16 non-negotiable rules). The detail lives in `references/`:
+
+| § | Topic | File |
 |---|---|---|
-| 1 | Modelo de seguridad de un endpoint público | `01-seguridad.md` |
-| 2–7 | SPA: Vite/GitHub Pages, React, formularios, imágenes/GPS/firma/PDF, persistencia, Service Worker | `02-spa-cliente.md` |
-| 8–9 | Contrato SPA↔flow y armado del flow | `03-contrato-y-flow.md` |
-| 10, 18 | SharePoint por REST y sincronización masiva Excel → SP | `04-sharepoint.md` |
-| 11–12 | GitHub Pages y credenciales / device code | `05-deploy-y-credenciales.md` |
-| 13–17 | Operación, diagnóstico, orden de construcción y **catálogo de errores** | `06-operacion-y-errores.md` |
-| 19 | PWA operativa para uso en la calle | `07-pwa-operativa.md` |
-| 20 | Flows como código: paquete, API de administración, trampas de runtime | `08-flows-como-codigo.md` |
-| 21 | Trigger HTTP, licencias, límites, apagado automático | `09-licencias-limites-trigger.md` |
-| 22 | Resiliencia: Try/Catch, reintentos, concurrencia, datos sensibles | `10-resiliencia-y-errores-flow.md` |
-| 23 | SharePoint a escala: umbrales, paginación, throttling | `11-lecturas-sharepoint-a-escala.md` |
-| 24 | Soluciones, connection references, variables de entorno, auditoría | `12-alm-soluciones-y-auditoria.md` |
-| 25 | Registro de herramientas de terceros evaluadas y relevamiento del ecosistema | `13-decisiones-de-herramientas.md` |
-| 26 | Flows de soluciones por código: PAC CLI y tabla `workflow` de Dataverse | `14-soluciones-por-codigo-pac-dataverse.md` |
-| 27 | Diseño de listas de SharePoint como backend | `15-diseno-listas-sharepoint.md` |
-| 28 | Flujos que se disparan al subir un archivo a SharePoint | `16-flujos-disparados-por-archivos.md` |
+| 1 | Security model of a public endpoint | `01-seguridad.md` |
+| 2–7 | SPA: Vite/Pages, React, forms, images/GPS/signature/PDF, persistence, service worker | `02-spa-cliente.md` |
+| 8–9 | SPA ↔ flow contract; building the flow | `03-contrato-y-flow.md` |
+| 10, 18 | SharePoint over REST; bulk Excel → SharePoint sync | `04-sharepoint.md` |
+| 11–12 | GitHub Pages; credentials and device code | `05-deploy-y-credenciales.md` |
+| 13–17 | Operations, diagnosis, build order, **error catalog** | `06-operacion-y-errores.md` |
+| 19 | Field PWAs (Wake Lock, Web Push, state machine) | `07-pwa-operativa.md` |
+| 20 | Flows as code: package, admin API, runtime traps | `08-flows-como-codigo.md` |
+| 21 | Trigger auth, licensing, limits, auto-suspension | `09-licencias-limites-trigger.md` |
+| 22 | Resilience: try/catch, retries, concurrency, sensitive data | `10-resiliencia-y-errores-flow.md` |
+| 23 | SharePoint at scale: thresholds, pagination, throttling | `11-lecturas-sharepoint-a-escala.md` |
+| 24 | Solutions, connection references, environment variables, auditing | `12-alm-soluciones-y-auditoria.md` |
+| 25 | Third-party tools evaluated, ecosystem survey | `13-decisiones-de-herramientas.md` |
+| 26 | Solution flows by code: PAC CLI and Dataverse | `14-soluciones-por-codigo-pac-dataverse.md` |
+| 27 | SharePoint list design as a backend | `15-diseno-listas-sharepoint.md` |
+| 28 | Flows triggered by a file upload | `16-flujos-disparados-por-archivos.md` |
+| 29 | Tenant governance: DLP, IP firewall, conditional access, network | `17-gobernanza-del-tenant-dlp.md` |
+| 30 | Email from flows | `18-correo-outlook.md` |
+| 31 | Reporting and Power BI on lists | `19-reportes-power-bi-listas.md` |
+| 32 | `Sites.Selected` and Graph with least privilege | `20-permisos-graph-sites-selected.md` |
+| 33 | Personal data in field apps | `21-datos-personales.md` |
 
-### Lo que la distingue
+## Why you can trust it
 
-- **Trampas que solo aparecen en runtime**, con su síntoma exacto: `PatchItem` que exige todas las columnas obligatorias, `Choice`/`Hyperlink` que llegan como objeto **o** cadena y tiran el `Select` entero con 502, `Initialize variable` solo en la raíz, ramas sin `Response` que devuelven un `202` silencioso, flow con nombre duplicado que hace que un *Update* aterrice en el flow equivocado.
-- **Flows como código**: generar el paquete de importación, aplicar la definición por la API de administración y leer el error por acción del historial de corridas, sin abrir el diseñador.
-- **Datos de plataforma verificados** contra Microsoft Learn (§21–§24), con fuente y fecha. Por ejemplo, que el default de "Who can trigger the flow" en flows nuevos es *Any user in my tenant* y por eso una SPA pública recibe 401 hasta que se cambia a *Anyone*.
-- **Flujos disparados por archivos** (§28): campos del disparador que engañan (`{Name}` sin extensión), `Route did not match`, rendimiento de la búsqueda del ítem de destino (de ~11 min a <30 s), el disparador de sondeo y cómo probar sin esperar.
-- **Camino soportado por código** (§26): PAC CLI y la tabla `workflow` de Dataverse, y el aviso de que `api.flow.microsoft.com` no está soportada por Microsoft.
-- **Autenticación sin app propia para scripts de desarrollo** (§18.1, §20.2): ver el aviso de uso responsable más abajo.
+- **Sources and dates.** Platform facts end with a *Fuentes / Sources* block (Microsoft Learn). Anything not confirmed says **NO VERIFICADO / NOT VERIFIED**, and the origin (official docs, forum, own observation) is labeled.
+- **Validated on every push**: the [agentskills.io reference validator](https://agentskills.io/specification), structure and link checks, a privacy scan (no tenants, emails, trigger URLs), and 25 static evals that keep the router and the key facts from regressing.
+- **Honest about what changes.** Quotas and defaults change: for example, the default for *Who can trigger the flow* on new flows is **Any user in my tenant**, and Microsoft describes *Anyone* as the legacy mode. The changelog records what was checked and when.
+- **Responsible-use notes** where a technique could be misread (§18.1, §20.2): delegated tokens only, visible in sign-in logs, not a replacement for an approved app registration.
 
-## Uso responsable de la autenticación con cliente de Microsoft (§18.1 y §20.2)
+## Scope and limits
 
-Esas secciones documentan una técnica de token **delegado** con un cliente público de Microsoft ya consentido y flujo de código de dispositivo. Está pensada para quien desarrolla automatización con **su propio acceso** y se traba en el consentimiento por app. Tené en cuenta:
+- Field experience plus documentation research; **not official Microsoft documentation**, and not affiliated with Microsoft or any tool mentioned.
+- Built around a real pipeline: public SPA/PWA → HTTP-trigger flow → SharePoint. Dataverse, Power Apps and SPFx are covered only where they touch that pipeline; Microsoft's own [`power-platform-skills`](https://github.com/microsoft/power-platform-skills) and [`pnp/sharepoint-skills`](https://github.com/pnp/sharepoint-skills) go deeper there and complement this one.
+- Argentina-specific details exist (plate formats, holidays, Ley 25.326). §33 is a technical guide, **not legal advice**.
 
-- El token solo puede hacer lo que la persona que inicia sesión ya puede hacer. No otorga permisos extra.
-- No reemplaza la vía correcta para producción: una app registrada con permisos aprobados (idealmente `Sites.Selected`).
-- Es **visible** en los logs de inicio de sesión de Entra, puede bloquearse por acceso condicional o deshabilitando el código de dispositivo, y Microsoft puede cambiar la preautorización del cliente cuando quiera.
-- Confirmá que la política de tu organización lo permite. Tratá el refresh token como una contraseña.
+## Roadmap
 
-## Alcance y límites
+See [CHANGELOG.md](CHANGELOG.md) → *Planned*: English translation of the verified sections, a starter kit, server-side PDF, maps/GPS, offline queue, Approvals vs link-based approval, Teams and Adaptive Cards.
 
-- Es experiencia de campo más lectura de documentación, **no documentación oficial** ni producto de Microsoft; no tiene relación con Microsoft ni con ninguna de las herramientas mencionadas.
-- Las cuotas, límites y valores por defecto de la plataforma **cambian**. Cada dato de §21–§24 lleva su fuente: revalidá antes de citarlo en un documento formal.
-- Ejemplos y textos están en español rioplatense; hay elementos propios de Argentina (formato de patente, feriados).
-- Los datos de empresa fueron reemplazados por marcadores genéricos (`tenant-a`, `usuario@empresa.com`, `x-app-key`).
+## Contributing
 
-## Contribuir
+Issues and pull requests are welcome, especially **new errors with the exact symptom** and **corrections of facts that changed** (with the source). Read [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md). Never include tenants, company names, emails or trigger URLs.
 
-Issues y pull requests bienvenidos, sobre todo:
-
-- Nuevas trampas de runtime con **síntoma exacto**, causa y arreglo verificado.
-- Correcciones de datos que hayan cambiado en la plataforma (con enlace a la fuente).
-- Traducciones de secciones al inglés.
-
-No incluyas datos de tu organización (tenants, correos, URLs de trigger con firma `sig=`, identificadores internos).
-
-## Licencia
+## License
 
 [MIT](LICENSE)

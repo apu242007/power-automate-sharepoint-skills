@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security concern / Problema de seguridad
+    url: https://github.com/apu242007/power-automate-sharepoint-skills/security/policy
+    about: Leaked values, unsafe guidance or scripts. Read SECURITY.md first.

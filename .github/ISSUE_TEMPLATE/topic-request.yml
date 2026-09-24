@@ -1,0 +1,19 @@
+name: Topic request / Tema pendiente
+description: Something an agent should know about this pipeline that is not covered yet.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: topic
+    attributes:
+      label: Topic / Tema
+      description: What situation or task, and what happened when the agent tried without it.
+    validations: {required: true}
+  - type: textarea
+    id: prompt
+    attributes:
+      label: Example prompt / Prompt de ejemplo
+      description: A real question you would ask. It may become an eval case.
+  - type: input
+    id: sources
+    attributes:
+      label: Sources you know / Fuentes que conocés
