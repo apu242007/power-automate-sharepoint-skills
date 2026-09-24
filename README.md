@@ -10,6 +10,10 @@ An agent skill for Claude Code, GitHub Copilot in VS Code, Codex, Cursor and any
 
 > 🇪🇸 [Leer en español](README.es.md) · The skill body is written mostly in **Spanish**; the key platform sections (§21–§23, §26, §29, §30, §32) are **translated to English** in `references/en/`.
 
+![An agent in VS Code creates an HTTP-trigger flow with pac, imports it, gets a 200 from an outside POST and changes the flow by code](docs/demo-vscode-agent-builds-flow.gif)
+
+*Reconstruction of the real test run of 2026-09-24 (`pac` 2.12.2, developer environment): the commands and outputs are real but abbreviated, and the environment, user and trigger URL are replaced by placeholders. It is not a screen recording. The last card shows what the agent could **not** do on its own.*
+
 ![Same question answered without and with the skill: a rarely used flow that turned itself off, and a "disabled by your organization" error](docs/demo-with-vs-without-skill.gif)
 
 *Excerpts of real answers from the same model, without the skill (left) and with it (right); highlighted text is what the answer without the skill was missing. n = 1 per condition, abbreviated text.*
