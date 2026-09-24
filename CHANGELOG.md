@@ -11,6 +11,12 @@ Platform facts were verified against Microsoft Learn on the date of each entry; 
 - Find which post-import step (open, turn on, run) actually starts a solution flow that uses a connection reference.
 - Power Apps authoring (`pac canvas`, `pac power-apps` appeared in `pac` 2.12); today the skill covers Power Apps only as a caller of the flow.
 
+## [1.4.7] - 2026-09-24
+
+### Changed
+- §9: CORS of the HTTP trigger moves from NOT VERIFIED to **OBSERVED, not documented**. A browser-style preflight (`Origin`, `Access-Control-Request-Method: POST`, `Access-Control-Request-Headers: content-type,x-app-key`) against a `*.environment.api.powerplatform.com` trigger URL got `204` with `Access-Control-Allow-Origin: *`, and the `POST` response carried the same header. The test used the URL of a just-deleted flow (gateway behaviour), one URL format only, and no real page.
+- Because the trigger accepts any origin, the docs now stress rate limiting and bot verification in front of it for production (§1).
+
 ## [1.4.6] - 2026-09-24
 
 ### Fixed (starter kit and §2, fourth review round)

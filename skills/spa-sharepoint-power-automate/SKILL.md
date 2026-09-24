@@ -12,7 +12,7 @@ description: >-
   file is an index: open the referenced file for the section you need.
 license: MIT
 metadata:
-  version: 1.4.6
+  version: 1.4.7
   updated: '2026-09-24'
 ---
 
@@ -172,6 +172,7 @@ Las que más cuestan cuando se olvidan. Cada una remite a la sección con el por
 
 ## Historial
 
+- **2026-09-24 (12)** — CORS del trigger pasa de NO VERIFICADO a OBSERVADO: un preflight de navegador (`Origin`, `Access-Control-Request-Headers: content-type,x-app-key`) contra una URL `*.environment.api.powerplatform.com` recibió `204` con `Access-Control-Allow-Origin: *`, y la respuesta del POST también lo lleva (§9). Sigue sin estar documentado por Microsoft ni probado desde una página real. Versión 1.4.7.
 - **2026-09-24 (11)** — Cuarta ronda de revisión: el service worker usa un prefijo de cache por alcance (varios proyectos de Pages no se borran los caches) y su instalación es atómica (un precache incompleto no reemplaza al que funcionaba); `spfetch` acepta el host DoD `sharepoint-mil.us`; §2 ya no recomienda recargar solo tras actualizar el service worker y corrige la declaración de iconos del manifest. Versión 1.4.6.
 - **2026-09-24 (10)** — Kit de arranque, tercera ronda de revisión (122 tests): `SP_TOKEN` solo se adjunta a hosts https de SharePoint; una foto que no se pueda re-codificar se omite con aviso en vez de subir el original (EXIF); el service worker precachea los assets del build; las claves del borrador incluyen la ruta de la app; la plantilla del flow exige validar el cuerpo y deduplicar por folio (§9, 3b y 3c); la documentación ya no exagera los reintentos. Versión 1.4.5.
 - **2026-09-24 (9)** — Kit de arranque corregido tras una revisión externa (117 tests): los 500/503 se reintentan solos solo con `serverIdempotent`; el éxito exige 200 con el folio (un 202 vacío es *no confirmado*); el borrador caduca a los 7 días y hay botón para borrarlo; las fotos se re-codifican siempre (sin EXIF); el service worker avisa en vez de recargar; la firma tiene alternativa escrita. Versión 1.4.4.
