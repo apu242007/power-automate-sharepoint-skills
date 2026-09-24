@@ -14,6 +14,10 @@ An agent skill for Claude Code, GitHub Copilot in VS Code, Codex, Cursor and any
 
 *Reconstruction of the real test run of 2026-09-24 (`pac` 2.12.2, developer environment): the commands and outputs are real but abbreviated, and the environment, user and trigger URL are replaced by placeholders. It is not a screen recording. The last card shows what the agent could **not** do on its own.*
 
+![How the flow the agent imported looks in Power Automate: trigger, SharePoint action, response and a successful run](docs/demo-flow-in-power-automate.gif)
+
+*Illustration of the flow from the same test run, drawn generically (site and environment are placeholders). It is **not** a screenshot of the portal.*
+
 ![Same question answered without and with the skill: a rarely used flow that turned itself off, and a "disabled by your organization" error](docs/demo-with-vs-without-skill.gif)
 
 *Excerpts of real answers from the same model, without the skill (left) and with it (right); highlighted text is what the answer without the skill was missing. n = 1 per condition, abbreviated text.*
