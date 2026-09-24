@@ -5,6 +5,12 @@ Platform facts were verified against Microsoft Learn on the date of each entry; 
 
 ## [Unreleased]
 
+### Added
+- `evals/comparison.md`: an 8-symptom with/without comparison (25/44 verified facts without the skill, 44/44 with it; n = 1, facts drawn from the skill, so biased by construction).
+
+### Changed
+- README: removed the claim that agents "usually answer with generic advice"; the comparison shows a strong agent gets the headline cause and the skill adds second-order detail, caveats and sources.
+
 ### Planned (known gaps)
 - English translation of the remaining sections (§1–§20, §24, §25, §27, §28, §31, §33, §34).
 - Server-side PDF generation (Word template + conversion), maps and field GPS, offline queue, Approvals connector vs link-based approval, Teams / Adaptive Cards, trigger conditions and child flows.

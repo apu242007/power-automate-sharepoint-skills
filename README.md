@@ -20,7 +20,7 @@ You build a public, no-login web form (React/Vite or a static PWA on GitHub Page
 - it works on mobile data and fails on the **corporate network**,
 - `Get file content` says `Route did not match` with a perfectly good path.
 
-Agents usually answer these with generic advice ("check the connection"). This skill gives them the specific, verified answer.
+A strong agent often gets the headline cause on its own. What it usually lacks is the second-order detail: the exemptions, the exact numbers, the caveats and the "do not do this" warnings, each with a source. In an 8-symptom comparison the skill's answers covered all 44 verified facts against 25 without it (small sample, biased by construction: see [`evals/comparison.md`](evals/comparison.md)).
 
 ## What you get
 

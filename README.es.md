@@ -19,7 +19,7 @@ Armás un formulario web público, sin login (React/Vite o una PWA estática en 
 - funciona con datos móviles y falla en la **red de la empresa**,
 - `Obtener contenido de archivo` dice `Route did not match` con una ruta perfectamente válida.
 
-Los agentes suelen contestar consejos genéricos ("revisá la conexión"). Esta skill les da la respuesta específica y verificada.
+Un agente potente muchas veces acierta la causa principal por su cuenta. Lo que suele faltarle es el detalle de segundo orden: las excepciones, las cifras exactas, las salvedades y los "no hagas esto", cada uno con su fuente. En una comparación de 8 síntomas, las respuestas con la skill cubrieron los 44 hechos verificados y sin ella 25 (muestra chica y sesgada por construcción: ver [`evals/comparison.md`](evals/comparison.md)).
 
 ## Qué incluye
 
