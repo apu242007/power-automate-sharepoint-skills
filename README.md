@@ -26,7 +26,7 @@ With the skill loaded, the agent knows the pipeline (page → HTTP-trigger flow 
 
 ### What has been tested with a real agent run
 
-Tested on 2026-09-24 with `pac` 2.12.2 in a **developer environment** (not production). Details and traps in §26.7.
+Tested on 2026-09-24 with `pac` 2.12.2 in a **developer environment** (not production), writing to a test SharePoint list. Details and traps in §26.7.
 
 | Step | Status |
 |---|---|
@@ -36,9 +36,10 @@ Tested on 2026-09-24 with `pac` 2.12.2 in a **developer environment** (not produ
 | POST from outside to the trigger URL; run history read with `pac power-automate list-flow-runs` | Tested |
 | Change the flow in code (new field), reimport, new definition live | Tested |
 | SharePoint connection reference in the solution + deployment settings file, import | Import tested |
-| A flow with a SharePoint action turns on and **writes a row** | **Not tested end to end yet** (in progress) |
+| Create a SharePoint list and column from code (a scheduled flow with REST calls) | Tested |
+| A flow with a SharePoint action **writes a row** (the outside POST returned the row `Id`) | Tested |
 | Get the trigger URL from code | **Not possible with `pac`**: copy it from the designer |
-| Create the SharePoint connection from code | Not covered: the tested run created it in the portal |
+| Create the SharePoint connection from code | Not covered: the tested run created it in the portal, and the flows had to be opened, turned on and run there after import (which step was needed was not confirmed) |
 | Build Power Apps canvas apps | Not covered (Power Apps appears only as a caller of the flow) |
 
 You still need: `pac` installed and signed in to an environment you may change, a Premium license where the HTTP trigger requires it, and permission on the SharePoint site. Check `pac auth who` before every import so you do not touch the wrong environment.
@@ -145,7 +146,7 @@ To follow the tested recipe you also need the [Power Platform CLI](https://learn
 
 ## Roadmap
 
-See [CHANGELOG.md](CHANGELOG.md) → *Planned*: the end-to-end test of a flow that writes to SharePoint, Power Apps authoring (`pac canvas`), English translation of the remaining sections, server-side PDF, maps/GPS, offline queue, Approvals vs link-based approval, Teams and Adaptive Cards.
+See [CHANGELOG.md](CHANGELOG.md) → *Planned*: Power Apps authoring (`pac canvas`), finding which post-import step really turns the flows on, English translation of the remaining sections, server-side PDF, maps/GPS, offline queue, Approvals vs link-based approval, Teams and Adaptive Cards.
 
 ## Contributing
 

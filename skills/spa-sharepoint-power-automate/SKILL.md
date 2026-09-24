@@ -12,7 +12,7 @@ description: >-
   file is an index: open the referenced file for the section you need.
 license: MIT
 metadata:
-  version: 1.4.1
+  version: 1.4.2
   updated: '2026-09-24'
 ---
 
@@ -172,6 +172,7 @@ Las que más cuestan cuando se olvidan. Cada una remite a la sección con el por
 
 ## Historial
 
+- **2026-09-24 (7)** — §26.7 completado: prueba de punta a punta con SharePoint (una lista y una columna creadas por un flow programado con llamadas REST, y una fila escrita por un flow HTTP: 200 con el `Id`), la trampa de "Crear elemento" (valida columnas al guardar) y lo que no se confirmó. Versión 1.4.2.
 - **2026-09-24 (6)** — §26.7 nuevo: receta probada para crear un flow HTTP desde cero solo con `pac` (prueba real en un entorno de desarrollador: import, activación, POST, corridas, cambio por código; trampas de mayúsculas del GUID y de la connection reference; lo no probado, marcado). Versión 1.4.1.
 - **2026-09-24 (5)** — Traducción al inglés de §21, §22, §23, §26, §29, §30 y §32 (`references/en/`, misma numeración; el original en español es la fuente). Nuevo router en inglés. Versión 1.4.0.
 - **2026-09-24 (4)** — Nuevo: §34 kit de arranque (`assets/spa-starter/`: SPA Vite + React + TypeScript con firma, fotos, borrador versionado, service worker y cliente de envío con reintentos; 108 tests; 4 scripts sin dependencias). Versión 1.3.0.

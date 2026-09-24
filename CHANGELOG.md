@@ -8,8 +8,18 @@ Platform facts were verified against Microsoft Learn on the date of each entry; 
 ### Planned (known gaps)
 - English translation of the remaining sections (§1–§20, §24, §25, §27, §28, §31, §33, §34).
 - Server-side PDF generation (Word template + conversion), maps and field GPS, offline queue, Approvals connector vs link-based approval, Teams / Adaptive Cards, trigger conditions and child flows.
-- End-to-end test of a solution flow with a SharePoint action (in progress; the import and connection reference step is covered in §26.7).
+- Find which post-import step (open, turn on, run) actually starts a solution flow that uses a connection reference.
 - Power Apps authoring (`pac canvas`, `pac power-apps` appeared in `pac` 2.12); today the skill covers Power Apps only as a caller of the flow.
+
+## [1.4.2] - 2026-09-24
+
+### Added
+- §26.7 completed with an end-to-end test against SharePoint: a scheduled flow with REST calls created a list and a column, and an HTTP-trigger flow wrote a row (the outside POST returned 200 with the row `Id`).
+- Trap: the "Create item" action validates dynamic columns against the real list on save (`WorkflowOperationParametersExtraParameter`), so a missing list keeps the flow in draft.
+- The `@coalesce(...)` fix now tested (real boolean); what was not confirmed is stated.
+
+### Changed
+- README rewritten around the use case (an agent builds the page, the flow and the list from your computer), with a table of what was tested and what was not.
 
 ## [1.4.1] - 2026-09-24
 

@@ -25,7 +25,7 @@ Con la skill cargada, el agente conoce el pipeline (página → flow con trigger
 
 ### Qué se probó con una corrida real de un agente
 
-Probado el 2026-09-24 con `pac` 2.12.2 en un **entorno de desarrollador** (no producción). Los detalles y las trampas están en §26.7.
+Probado el 2026-09-24 con `pac` 2.12.2 en un **entorno de desarrollador** (no producción), escribiendo en una lista de SharePoint de prueba. Los detalles y las trampas están en §26.7.
 
 | Paso | Estado |
 |---|---|
@@ -35,9 +35,10 @@ Probado el 2026-09-24 con `pac` 2.12.2 en un **entorno de desarrollador** (no pr
 | POST desde fuera a la URL del trigger; historial de corridas con `pac power-automate list-flow-runs` | Probado |
 | Cambiar el flow por código (campo nuevo), reimportar y que quede la definición nueva | Probado |
 | Connection reference de SharePoint en la solución + archivo de despliegue, import | Import probado |
-| Un flow con acción de SharePoint se activa y **escribe una fila** | **Todavía sin probar de punta a punta** (en curso) |
+| Crear una lista y una columna de SharePoint por código (un flow programado con llamadas REST) | Probado |
+| Un flow con acción de SharePoint **escribe una fila** (el POST desde fuera devolvió el `Id` de la fila) | Probado |
 | Obtener la URL del trigger por código | **No se puede con `pac`**: se copia del diseñador |
-| Crear la conexión de SharePoint por código | No cubierto: en la prueba se creó en el portal |
+| Crear la conexión de SharePoint por código | No cubierto: en la prueba se creó en el portal, y tras el import hubo que abrir los flows, activarlos y ejecutarlos ahí (no se confirmó cuál de esos pasos hacía falta) |
 | Construir apps de lienzo de Power Apps | No cubierto (Power Apps aparece solo como quien llama al flow) |
 
 Igual necesitás: `pac` instalado y con sesión en un entorno que puedas modificar, licencia Premium donde el trigger HTTP la exija, y permiso sobre el sitio de SharePoint. Mirá `pac auth who` antes de cada import para no tocar el entorno equivocado.
@@ -117,7 +118,7 @@ Para seguir la receta probada también necesitás la [CLI de Power Platform](htt
 
 ## Hoja de ruta
 
-Ver [CHANGELOG.md](CHANGELOG.md) → *Planned*: la prueba de punta a punta de un flow que escribe en SharePoint, la creación de apps de Power Apps (`pac canvas`), la traducción al inglés de las secciones restantes, PDF en servidor, mapas/GPS, cola sin conexión, Approvals frente a aprobación por enlace, Teams y Adaptive Cards.
+Ver [CHANGELOG.md](CHANGELOG.md) → *Planned*: la creación de apps de Power Apps (`pac canvas`), averiguar qué paso posterior al import activa de verdad los flows, la traducción al inglés de las secciones restantes, PDF en servidor, mapas/GPS, cola sin conexión, Approvals frente a aprobación por enlace, Teams y Adaptive Cards.
 
 ## Contribuir
 
