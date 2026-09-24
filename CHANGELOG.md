@@ -11,6 +11,13 @@ Platform facts were verified against Microsoft Learn on the date of each entry; 
 - Find which post-import step (open, turn on, run) actually starts a solution flow that uses a connection reference.
 - Power Apps authoring (`pac canvas`, `pac power-apps` appeared in `pac` 2.12); today the skill covers Power Apps only as a caller of the flow.
 
+## [1.4.6] - 2026-09-24
+
+### Fixed (starter kit and §2, fourth review round)
+- The service worker cache prefix includes the SW scope, so several GitHub Pages projects on one origin no longer delete each other's caches; installation is atomic (`addAll`), so an incomplete precache cannot replace a working one.
+- `spfetch` accepts the Microsoft 365 DoD SharePoint host `sharepoint-mil.us` (and still rejects look-alike hosts).
+- §2 no longer recommends reloading by itself when the service worker updates (it notifies and lets the user choose), and the manifest-icons section now says to ship real PNG files for each declared size.
+
 ## [1.4.5] - 2026-09-24
 
 ### Fixed (starter kit, third review round; 122 tests)
