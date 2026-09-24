@@ -51,6 +51,18 @@ Probado el 2026-09-24 con `pac` 2.12.2 en un **entorno de desarrollador** (no pr
 
 Igual necesitás: `pac` instalado y con sesión en un entorno que puedas modificar, licencia Premium donde el trigger HTTP la exija, y permiso sobre el sitio de SharePoint. Mirá `pac auth who` antes de cada import para no tocar el entorno equivocado.
 
+## Inicio rápido (3 pasos)
+
+1. **Instalá la skill** (requiere Node.js): `npx skills add https://github.com/apu242007/power-automate-sharepoint-skills --skill spa-sharepoint-power-automate`
+2. **Iniciá sesión en un entorno de desarrollo** con la CLI de Power Platform: `pac auth create --name Dev --environment "<url>" --deviceCode`, y verificá con `pac auth who`.
+3. **Pedile a tu agente** lo que necesitás, por ejemplo: *"Con la skill spa-sharepoint-power-automate, creá como código un flow con trigger HTTP que escriba en mi lista de prueba, importalo y decime cómo llamarlo."*
+
+## Para quién es
+
+- **Makers y desarrolladores ciudadanos** que arman formularios web o apps de campo sobre SharePoint y quieren que un agente de IA haga el trabajo repetitivo.
+- **Desarrolladores** que prefieren VS Code y una terminal al diseñador de flows, y quieren los flows en Git.
+- **Equipos con IT restrictivo** que necesitan saber qué pedirles a sus administradores (DLP, licencias, `Sites.Selected`).
+
 ## El problema
 
 Armás un formulario web público, sin login (React/Vite o una PWA estática en GitHub Pages) que hace POST a un **flow de Power Automate con trigger HTTP** que escribe en **SharePoint**. En tu máquina anda. Y después:
@@ -115,6 +127,20 @@ Para seguir la receta probada también necesitás la [CLI de Power Platform](htt
 - **Validada en cada push**: el [validador de referencia de agentskills.io](https://agentskills.io/specification), controles de estructura y enlaces, un escaneo de privacidad (sin tenants, correos ni URLs de trigger) y 29 evals estáticos que evitan que el enrutador y los datos clave retrocedan.
 - **Honesta sobre lo que cambia.** Las cuotas y los valores por defecto cambian: por ejemplo, el default de *Who can trigger the flow* en flows nuevos es **Any user in my tenant**, y Microsoft describe *Anyone* como el modo heredado. El changelog registra qué se verificó y cuándo.
 - **Notas de uso responsable** donde una técnica podría malinterpretarse (§18.1, §20.2): solo tokens delegados, visibles en los registros de inicio de sesión, y no reemplazan un registro de aplicación aprobado.
+
+## Preguntas frecuentes
+
+**¿La skill se conecta a mi tenant?** No. Es conocimiento que el agente lee. Tu agente inicia sesión con `pac` y ejecuta los comandos con tus permisos.
+
+**¿Necesita licencia Premium?** Los flows con trigger HTTP que arma la usan en la mayoría de los tenants. §21 explica la regla exacta y sus excepciones.
+
+**¿Sirve para producción?** Empezá por un entorno de desarrollo. La receta probada (§26.7) corrió en un entorno de desarrollador; para promover flows usá soluciones y archivos de despliegue (§24, §26), no cambios a mano.
+
+**¿Es oficial?** No. Es experiencia de campo más investigación de documentación, con fuentes y fechas, y no tiene relación con Microsoft.
+
+**¿Con qué agentes anda?** Con cualquiera que lea el formato [Agent Skills](https://agentskills.io/specification): Claude Code, GitHub Copilot, Codex, Cursor, Gemini CLI, Cline y otros.
+
+**¿Qué no puede hacer?** Obtener la URL del trigger por código, crear la conexión de SharePoint ni construir apps de lienzo de Power Apps. Mirá la tabla de lo probado.
 
 ## Alcance y límites
 

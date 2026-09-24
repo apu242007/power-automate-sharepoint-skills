@@ -52,6 +52,18 @@ Tested on 2026-09-24 with `pac` 2.12.2 in a **developer environment** (not produ
 
 You still need: `pac` installed and signed in to an environment you may change, a Premium license where the HTTP trigger requires it, and permission on the SharePoint site. Check `pac auth who` before every import so you do not touch the wrong environment.
 
+## Quick start (3 steps)
+
+1. **Install the skill** (needs Node.js): `npx skills add https://github.com/apu242007/power-automate-sharepoint-skills --skill spa-sharepoint-power-automate`
+2. **Sign in to a development environment** with the Power Platform CLI: `pac auth create --name Dev --environment "<url>" --deviceCode`, then check `pac auth who`.
+3. **Ask your agent** for what you need, for example: *"Using the spa-sharepoint-power-automate skill, create an HTTP-trigger flow as code that writes to my test list, import it, and show me how to call it."*
+
+## Who it is for
+
+- **Makers and citizen developers** who build web forms or field apps on SharePoint and want an AI agent to do the repetitive work.
+- **Developers** who prefer VS Code and a terminal to the flow designer, and want flows in Git.
+- **IT-constrained teams** that need to know what to ask their administrators for (DLP, licensing, `Sites.Selected`).
+
 ## The problem it solves
 
 You build a public, no-login web form (React/Vite or a static PWA on GitHub Pages) that POSTs to a **Power Automate HTTP-trigger flow** that writes to **SharePoint**. It works on your machine. Then:
@@ -144,6 +156,20 @@ To follow the tested recipe you also need the [Power Platform CLI](https://learn
 - **Validated on every push**: the [agentskills.io reference validator](https://agentskills.io/specification), structure and link checks, a privacy scan (no tenants, emails, trigger URLs), and 29 static evals that keep the router and the key facts from regressing.
 - **Honest about what changes.** Quotas and defaults change: for example, the default for *Who can trigger the flow* on new flows is **Any user in my tenant**, and Microsoft describes *Anyone* as the legacy mode. The changelog records what was checked and when.
 - **Responsible-use notes** where a technique could be misread (§18.1, §20.2): delegated tokens only, visible in sign-in logs, not a replacement for an approved app registration.
+
+## FAQ
+
+**Does the skill connect to my tenant?** No. It is knowledge the agent reads. Your agent signs in with `pac` and runs the commands with your permissions.
+
+**Does it need a Premium license?** The HTTP-trigger flows it builds do, in most tenants. §21 explains the exact rule and its exemptions.
+
+**Can it run in production?** Use a development environment first. The tested recipe (§26.7) ran in a developer environment; promote flows with solutions and deployment settings (§24, §26), not by hand.
+
+**Is it official?** No. It is field experience plus documentation research, with sources and dates, and it is not affiliated with Microsoft.
+
+**Which agents work?** Any that read the [Agent Skills](https://agentskills.io/specification) format: Claude Code, GitHub Copilot, Codex, Cursor, Gemini CLI, Cline and others.
+
+**What can it not do?** Get the trigger URL from code, create the SharePoint connection, or build Power Apps canvas apps. See the tested table above.
 
 ## Scope and limits
 
